@@ -29,6 +29,10 @@ public class GunShoot : MonoBehaviour
 
     public void Construct(Transform ScopeTransform, Transform BulletSpawnPointTransform, GunShootDataModel GunShootData, BulletDataModel BulletData, Action StartShootEvent, Action StopShootEvent)
     {
+
+        StartShootEventHandler = StartShootEvent;
+        StopShootEventHandler = StopShootEvent;
+
         ScopeTransformComponent = ScopeTransform;
         BulletSpawnPointTransformComponent = BulletSpawnPointTransform;
 
@@ -39,8 +43,6 @@ public class GunShoot : MonoBehaviour
         RangeY = GunShootData.RangeY;
         GunShootType = GunShootData.GunShootType;
 
-        StartShootEventHandler = StartShootEvent;
-        StopShootEventHandler = StopShootEvent;
         StartShootEventHandler += StartShoot;
         StopShootEventHandler += StopShoot;
 

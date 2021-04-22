@@ -6,7 +6,6 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
 
-
     Transform GunTransformComponent;
     GunShootTrigger GunShootTriggerComponent;
 
@@ -15,13 +14,13 @@ public class Gun : MonoBehaviour
         GunShootTriggerComponent = this.gameObject.AddComponent<GunShootTrigger>();
         GunShootTriggerComponent.Construct(GunData.ShootTriggerData);
 
-        var bulletSpawnPoints = GetComponentsInChildren<BulletSpawnPoint>();
-        for (int i=0; i<bulletSpawnPoints.Length; i++)
+        var gunBarrels = this.gameObject.GetComponentsInChildren<GunBarrel>();
+        for (int i = 0; i < gunBarrels.Length; i++)
         {
-            GunShoot gunShootComponent = bulletSpawnPoints[i].gameObject.AddComponent<GunShoot>();
-            gunShootComponent.Construct(ScopeTransform, bulletSpawnPoints[i].GetBulletSpawnPointTransform(), GunData.GunShootData, GunData.BulletData,
+            gunBarrels[i].Construct(GunData.GunVisualisationData, GunShootTriggerComponent.GetStartShootEvent(), GunShootTriggerComponent.GetStopShootEvent());
+            GunShoot gunShootComponent = gunBarrels[i].GetBulletSpawnPointTransform().gameObject.AddComponent<GunShoot>();
+            gunShootComponent.Construct(ScopeTransform, gunBarrels[i].GetBulletSpawnPointTransform(), GunData.GunShootData, GunData.BulletData,
                                         GunShootTriggerComponent.GetStartShootEvent(), GunShootTriggerComponent.GetStopShootEvent());
-
         }
 
     }

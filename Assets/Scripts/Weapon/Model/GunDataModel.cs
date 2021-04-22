@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Player.Model;
-using Assets.Scripts.Weapon.Bullet.Enumerators;
+﻿using Assets.Scripts.Weapon.Bullet.Enumerators;
 using Assets.Scripts.Weapon.Bullet.Models;
 using Assets.Scripts.Weapon.Effects.Enumerators;
 using UnityEngine;
@@ -13,7 +12,7 @@ namespace Assets.Scripts.Weapon.Model
         public BulletDataModel BulletData { get { return _BullData; } }
         public GunShootDataModel GunShootData { get { return _GunShootData; } }
         public GunShootTriggerDataModel ShootTriggerData { get { return _GunShootTriggerData; } }
-        public PlayerWeaponVisualisationDataModel PlayerWeaponVisualisationData { get { return _PlayerWeaponVisualisationData; } }
+        public GunVisualisationDataModel GunVisualisationData { get { return _GunVisualisationData; } }
 
 
         [SerializeField]
@@ -25,16 +24,16 @@ namespace Assets.Scripts.Weapon.Model
         [SerializeField]
         private GunShootTriggerDataModel _GunShootTriggerData;
         [SerializeField]
-        private PlayerWeaponVisualisationDataModel _PlayerWeaponVisualisationData;
+        private GunVisualisationDataModel _GunVisualisationData;
 
         public GunDataModel(int NewId, BulletDataModel NewBulletData, GunShootDataModel NewGunShootData, 
-                               GunShootTriggerDataModel NewGunShootTriggerData, PlayerWeaponVisualisationDataModel NewPlayerWeaponVisualisationData)
+                               GunShootTriggerDataModel NewGunShootTriggerData, GunVisualisationDataModel NewGunVisualisationData)
         {
             _Id = NewId;
             _BullData = NewBulletData;
             _GunShootData = NewGunShootData;
             _GunShootTriggerData = NewGunShootTriggerData;
-            _PlayerWeaponVisualisationData = NewPlayerWeaponVisualisationData;
+            _GunVisualisationData = NewGunVisualisationData;
         }
     }
 }
