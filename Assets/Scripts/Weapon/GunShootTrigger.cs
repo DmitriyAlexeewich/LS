@@ -27,8 +27,22 @@ public class GunShootTrigger : MonoBehaviour
 
     public void StartShootCoroutine()
     {
-        ShootCoroutine = Shoot(WaitingTime);
-        StartCoroutine(ShootCoroutine);
+        if (ShootCoroutine == null)
+        {
+            switch (GunShootTriggerType)
+            {
+                case EnumGunShootTriggerType.Click:
+                    ShootCoroutine = ClickShoot(WaitingTime);
+                    break;
+                case EnumGunShootTriggerType.Press:
+                    ShootCoroutine = ClickShoot(WaitingTime);
+                    break;
+                case EnumGunShootTriggerType.Hold:
+                    ShootCoroutine = HoldShoot(WaitingTime);
+                    break;
+            }
+            StartCoroutine(ShootCoroutine);
+        }
     }
 
     public void StopShootCoroutine()
@@ -70,5 +84,19 @@ public class GunShootTrigger : MonoBehaviour
                 StopShootEvent?.Invoke();
             yield return new WaitForSeconds(WaitingTimeStep);
         }
+    }
+
+    IEnumerator ClickShoot(float WaitingTime)
+    {
+        StartShootEvent?.Invoke();
+        yield return new WaitForSeconds(WaitingTime);
+        ShootCoroutine = null;
+    }
+
+    IEnumerator HoldShoot(float WaitingTime)
+    {
+        yield return new WaitForSeconds(WaitingTime);
+        StartShootEvent?.Invoke();
+        ShootCoroutine = null;
     }
 }

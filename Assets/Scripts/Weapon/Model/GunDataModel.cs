@@ -8,15 +8,12 @@ namespace Assets.Scripts.Weapon.Model
     [System.Serializable]
     public class GunDataModel
     {
-        public int Id { get { return _Id; } }
         public BulletDataModel BulletData { get { return _BullData; } }
         public GunShootDataModel GunShootData { get { return _GunShootData; } }
         public GunShootTriggerDataModel ShootTriggerData { get { return _GunShootTriggerData; } }
         public GunVisualisationDataModel GunVisualisationData { get { return _GunVisualisationData; } }
 
 
-        [SerializeField]
-        private int _Id;
         [SerializeField]
         private BulletDataModel _BullData;
         [SerializeField]
@@ -26,10 +23,9 @@ namespace Assets.Scripts.Weapon.Model
         [SerializeField]
         private GunVisualisationDataModel _GunVisualisationData;
 
-        public GunDataModel(int NewId, BulletDataModel NewBulletData, GunShootDataModel NewGunShootData, 
-                               GunShootTriggerDataModel NewGunShootTriggerData, GunVisualisationDataModel NewGunVisualisationData)
+        public GunDataModel(BulletDataModel NewBulletData, GunShootDataModel NewGunShootData, 
+                            GunShootTriggerDataModel NewGunShootTriggerData, GunVisualisationDataModel NewGunVisualisationData)
         {
-            _Id = NewId;
             _BullData = NewBulletData;
             _GunShootData = NewGunShootData;
             _GunShootTriggerData = NewGunShootTriggerData;

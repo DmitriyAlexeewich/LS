@@ -15,7 +15,6 @@ public class GunShoot : MonoBehaviour
     Bullet BulletExample;
 
     Action StartShootEventHandler;
-    Action StopShootEventHandler;
 
     float Distance;
     float BulletsCountPerOneShoot;
@@ -27,11 +26,10 @@ public class GunShoot : MonoBehaviour
     IEnumerator ShootCoroutine;
     System.Random Rand = new System.Random((int)DateTime.Now.Ticks);
 
-    public void Construct(Transform ScopeTransform, Transform BulletSpawnPointTransform, GunShootDataModel GunShootData, BulletDataModel BulletData, Action StartShootEvent, Action StopShootEvent)
+    public void Construct(Transform ScopeTransform, Transform BulletSpawnPointTransform, GunShootDataModel GunShootData, BulletDataModel BulletData, Action StartShootEvent)
     {
 
         StartShootEventHandler = StartShootEvent;
-        StopShootEventHandler = StopShootEvent;
 
         ScopeTransformComponent = ScopeTransform;
         BulletSpawnPointTransformComponent = BulletSpawnPointTransform;
@@ -44,7 +42,6 @@ public class GunShoot : MonoBehaviour
         GunShootType = GunShootData.GunShootType;
 
         StartShootEventHandler += StartShoot;
-        StopShootEventHandler += StopShoot;
 
         if (BulletExample != null)
             Destroy(BulletExample.gameObject);
@@ -53,8 +50,7 @@ public class GunShoot : MonoBehaviour
 
     public void DestroyComponent()
     {
-        StopShootEventHandler -= StartShoot;
-        StopShootEventHandler -= StopShoot;
+        StartShootEventHandler -= StartShoot;
         Destroy(BulletExample.gameObject);
         Destroy(this);
     }
@@ -63,11 +59,6 @@ public class GunShoot : MonoBehaviour
     {
         ShootCoroutine = Shoot();
         StartCoroutine(ShootCoroutine);
-    }
-
-    void StopShoot()
-    {
-        StopCoroutine(ShootCoroutine);
     }
 
     IEnumerator Shoot()

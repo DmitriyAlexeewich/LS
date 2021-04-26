@@ -6,23 +6,49 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
 
-    Transform GunTransformComponent;
     GunShootTrigger GunShootTriggerComponent;
 
-    public void Construct(Transform GunTransform, Transform ScopeTransform, GunDataModel GunData)
+    public void Construct(Transform ScopeTransform, GunDataModel GunData)
     {
         GunShootTriggerComponent = this.gameObject.AddComponent<GunShootTrigger>();
         GunShootTriggerComponent.Construct(GunData.ShootTriggerData);
+        
+        GunShootTriggerVisualisation gunShootTriggerVisualisation = this.gameObject.AddComponent<GunShootTriggerVisualisation>();
+        gunShootTriggerVisualisation.Construct(GunData.GunVisualisationData, GunShootTriggerComponent.GetStartShootEvent());
 
-        var gunBarrels = this.gameObject.GetComponentsInChildren<GunBarrel>();
-        for (int i = 0; i < gunBarrels.Length; i++)
+        var gunShootVisualisations = this.gameObject.GetComponentsInChildren<GunShootVisualisation>();
+        for (int i = 0; i < gunShootVisualisations.Length; i++)
         {
-            gunBarrels[i].Construct(GunData.GunVisualisationData, GunShootTriggerComponent.GetStartShootEvent(), GunShootTriggerComponent.GetStopShootEvent());
-            GunShoot gunShootComponent = gunBarrels[i].GetBulletSpawnPointTransform().gameObject.AddComponent<GunShoot>();
-            gunShootComponent.Construct(ScopeTransform, gunBarrels[i].GetBulletSpawnPointTransform(), GunData.GunShootData, GunData.BulletData,
-                                        GunShootTriggerComponent.GetStartShootEvent(), GunShootTriggerComponent.GetStopShootEvent());
-        }
-
+            gunShootVisualisations[i].Construct(GunData.GunVisualisationData, GunShootTriggerComponent.GetStartShootEvent(), GunShootTriggerComponent.GetStopShootEvent());
+            GunShoot gunShootComponent = gunShootVisualisations[i].gameObject.AddComponent<GunShoot>();
+            gunShootComponent.Construct(ScopeTransform, gunShootVisualisations[i].GetBulletSpawnPointTransform(), GunData.GunShootData, GunData.BulletData,
+                                        GunShootTriggerComponent.GetStartShootEvent());
+        }        
     }
 
+    public void DestroyComponent()
+    {
+        var gunShootVisualisations = this.gameObject.GetComponentsInChildren<GunShootVisualisation>();
+        for (int i = 0; i < gunShootVisualisations.Length; i++)
+        {
+            gunShootVisualisations[i].DestroyComponent();
+            GunShoot gunShootComponent = gunShootVisualisations[i].gameObject.GetComponent<GunShoot>();
+            gunShootComponent.DestroyComponent();
+        }
+
+        GunShootTriggerVisualisation gunShootTriggerVisualisation = this.gameObject.GetComponent<GunShootTriggerVisualisation>();
+        gunShootTriggerVisualisation.DestroyComponent();
+
+        Destroy(this);
+    }
+
+    public void StartShoot()
+    {
+        GunShootTriggerComponent.StartShootCoroutine();
+    }
+
+    public void StopShoot()
+    {
+        GunShootTriggerComponent.StopShootCoroutine();
+    }
 }
