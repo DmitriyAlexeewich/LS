@@ -1,0 +1,22 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Weapon\Bullet\BulletAction.cs">
+    <Files>
+      <File FileName="Assets\Scripts\Weapon\Weapon.cs" Line="30" Column="23" />
+      <File FileName="Assets\Scripts\Weapon\Bullet\Bullet.cs" Line="9" Column="23" />
+      <File FileName="Assets\Scripts\Weapon\Bullet\BulletAction.cs" Line="80" Column="112" />
+      <File FileName="Assets\Scripts\Weapon\Bullet\BulletFlyAction.cs" Line="7" Column="35" />
+      <File FileName="Assets\Scripts\Weapon\Bullet\BulletPostEffect.cs" Line="12" Column="49" />
+      <File FileName="Assets\Scripts\Weapon\Bullet\Obj\BulletObj.cs" Line="31" Column="39" />
+      <File FileName="Assets\Scripts\Weapon\Bullet\Obj\BulletFlyActionObj.cs" Line="8" Column="25" />
+      <File FileName="Assets\Scripts\Test.cs" Line="10" Column="37" />
+      <File FileName="Assets\Scripts\Weapon\Bullet\Obj\BulletActionObj.cs" Line="5" Column="13" />
+      <File FileName="Assets\Scripts\Weapon\Bullet\Obj\BulletPostEffectObj.cs" Line="10" Column="29" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp-Editor PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>
