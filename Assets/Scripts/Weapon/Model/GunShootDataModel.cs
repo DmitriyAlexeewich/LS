@@ -54,7 +54,7 @@ namespace Assets.Scripts.Weapon.Model
                 _SpeedModifier = NewSpeedModifier;
             else
                 _SpeedModifier = 1;
-            if (NewDistanceModifier > 0)
+            if (NewDistance > 0)
                 _Distance = NewDistance;
             else
                 _Distance = 1;

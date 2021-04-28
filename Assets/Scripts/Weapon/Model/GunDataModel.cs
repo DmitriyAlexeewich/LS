@@ -8,14 +8,14 @@ namespace Assets.Scripts.Weapon.Model
     [System.Serializable]
     public class GunDataModel
     {
-        public BulletDataModel BulletData { get { return _BullData; } }
+        public BulletDataModel BulletData { get { return _BulletData; } }
         public GunShootDataModel GunShootData { get { return _GunShootData; } }
         public GunShootTriggerDataModel ShootTriggerData { get { return _GunShootTriggerData; } }
         public GunVisualisationDataModel GunVisualisationData { get { return _GunVisualisationData; } }
 
 
         [SerializeField]
-        private BulletDataModel _BullData;
+        private BulletDataModel _BulletData;
         [SerializeField]
         private GunShootDataModel _GunShootData;
         [SerializeField]
@@ -26,7 +26,7 @@ namespace Assets.Scripts.Weapon.Model
         public GunDataModel(BulletDataModel NewBulletData, GunShootDataModel NewGunShootData, 
                             GunShootTriggerDataModel NewGunShootTriggerData, GunVisualisationDataModel NewGunVisualisationData)
         {
-            _BullData = NewBulletData;
+            _BulletData = NewBulletData;
             _GunShootData = NewGunShootData;
             _GunShootTriggerData = NewGunShootTriggerData;
             _GunVisualisationData = NewGunVisualisationData;

@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class Clone : MonoBehaviour
 {
+    /*
     BulletCloneDataModel BulletCloneFlyEffect;
     Transform BulletTransform;
 
@@ -80,5 +81,5 @@ public class Clone : MonoBehaviour
     float GetFloatRandom(float Minimum, float Maximum)
     {
         return (float)Rand.NextDouble() * (Maximum - Minimum) + Minimum;
-    }
+    }*/
 }

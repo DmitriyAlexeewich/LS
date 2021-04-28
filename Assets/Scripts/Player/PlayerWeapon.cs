@@ -11,16 +11,26 @@ public class PlayerWeapon : MonoBehaviour
 {
 
     Gun GunComponent;
+    PlayerWeaponVisualisation PlayerWeaponVisualisationComponent;
 
     public void Construct(Transform PlayerCamera, PlayerWeaponDataModel PlayerWeaponData, Transform PlayerWeaponTransform)
     {
         GunComponent = this.gameObject.AddComponent<Gun>();
         GunComponent.Construct(PlayerCamera, PlayerWeaponData.GunData);
 
-        PlayerWeaponVisualisation playerWeaponVisualisationComponent = this.gameObject.AddComponent<PlayerWeaponVisualisation>();
-        playerWeaponVisualisationComponent.Construct(PlayerWeaponData.PlayerWeaponVisualisationData, PlayerWeaponTransform);
+        PlayerWeaponVisualisationComponent = this.gameObject.AddComponent<PlayerWeaponVisualisation>();
+        PlayerWeaponVisualisationComponent.Construct(PlayerWeaponData.PlayerWeaponVisualisationData, PlayerWeaponTransform);
     }
 
+    public void ShowWeapon()
+    {
+        PlayerWeaponVisualisationComponent.ShowWeapon();
+    }
+
+    public void HideWeapon()
+    {
+        PlayerWeaponVisualisationComponent.HideWeapon();
+    }
 
     void Update()
     {
@@ -54,7 +64,7 @@ public class PlayerWeapon : MonoBehaviour
 
     void Shoot()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
             GunComponent.StartShoot();
         if(Input.GetMouseButtonUp(0))
             GunComponent.StopShoot();

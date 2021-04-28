@@ -12,7 +12,7 @@ namespace Assets.Scripts.Weapon.Bullet.Models
     {
 
         public EnumBulletType BulletType { get { return _BulletType; } }
-        public float LifeTime { get { return LifeTime; } }
+        public float LifeTime { get { return _LifeTime; } }
         public float Damage { get { return _Damage; } }
         public float Speed { get { return _Speed; } }
         public float Diameter { get { return _Diameter; } }

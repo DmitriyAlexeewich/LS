@@ -20,6 +20,7 @@ public class PlayerWeaponVisualisation : MonoBehaviour
 
         PlayerWeaponTransformComponent.localPosition = PlayerWeaponVisualisationData.Position;
         PlayerWeaponTransformComponent.localRotation = PlayerWeaponVisualisationData.Rotation;
+        StartPosition = PlayerWeaponTransformComponent.localPosition;
 
         Weight = PlayerWeaponVisualisationData.Weight;
         MaxInertiaAmount = PlayerWeaponVisualisationData.MaxInertiaAmount;

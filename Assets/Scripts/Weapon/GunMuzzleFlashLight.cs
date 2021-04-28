@@ -6,14 +6,9 @@ public class GunMuzzleFlashLight : MonoBehaviour
 {
     Light ShootLightComponent;
 
-    Action StartShootEventHandler;
-    Action StopShootEventHandler;
 
     public void Construct(GunShootLightDataModel GunShootLightData, Action StartShootEvent, Action StopShootEvent)
     {
-        StartShootEventHandler = StartShootEvent;
-        StopShootEventHandler = StopShootEvent;
-
         ShootLightComponent = this.gameObject.GetComponent<Light>();
 
         ShootLightComponent.range = GunShootLightData.ShootLightRange;
@@ -21,14 +16,14 @@ public class GunMuzzleFlashLight : MonoBehaviour
         ShootLightComponent.color = GunShootLightData.ShootLightColor;
         ShootLightComponent.enabled = false;
 
-        StartShootEventHandler += PlayMuzzleFlashLight;
-        StopShootEventHandler += StopMuzzleFlashLight;
+        StartShootEvent += PlayMuzzleFlashLight;
+        StopShootEvent += StopMuzzleFlashLight;
     }
 
-    public void DestroyComponent()
+    public void DestroyComponent(Action StartShootEvent, Action StopShootEvent)
     {
-        StartShootEventHandler -= PlayMuzzleFlashLight;
-        StopShootEventHandler -= StopMuzzleFlashLight;
+        StartShootEvent -= PlayMuzzleFlashLight;
+        StopShootEvent -= StopMuzzleFlashLight;
         Destroy(this);
     }
 

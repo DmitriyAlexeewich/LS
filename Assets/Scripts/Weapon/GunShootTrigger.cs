@@ -50,16 +50,6 @@ public class GunShootTrigger : MonoBehaviour
         StopCoroutine(ShootCoroutine);
     }
 
-    public Action GetStartShootEvent()
-    {
-        return StartShootEvent;
-    }
-    
-    public Action GetStopShootEvent()
-    {
-        return StopShootEvent;
-    }
-
     IEnumerator Shoot(float WaitingTime)
     {
         var timer = WaitingTime;
@@ -81,14 +71,14 @@ public class GunShootTrigger : MonoBehaviour
             }
             timer -= WaitingTimeStep;
             if (timer <= WaitingTime * 0.5f)
-                StopShootEvent?.Invoke();
+                StopShootEvent();
             yield return new WaitForSeconds(WaitingTimeStep);
         }
     }
 
     IEnumerator ClickShoot(float WaitingTime)
     {
-        StartShootEvent?.Invoke();
+        StartShootEvent();
         yield return new WaitForSeconds(WaitingTime);
         ShootCoroutine = null;
     }

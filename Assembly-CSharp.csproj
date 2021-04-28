@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{1C2B7898-073D-8554-27F8-A214AB524F9A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -57,35 +56,33 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Player\Model\PlayerWeaponDataModel.cs" />
-    <Compile Include="Assets\Scripts\Player\Model\PlayerWeaponVisualisationDataModel.cs" />
-    <Compile Include="Assets\Scripts\Weapon\Bullet\BulletSpawnPoint.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\FlyEffects\Models\BulletDangerZoneDataModel.cs" />
+    <Compile Include="Assets\Scripts\Weapon\GunMuzzleFlashLight.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\FlyEffects\Models\BulletPathtDataModel.cs" />
     <Compile Include="Assets\Scripts\Player\Inventory.cs" />
     <Compile Include="Assets\Scripts\Player\Model\PlayerMouseLookStatsModel.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\EnemyHitEffects\Models\EnemyHitEffectDataModel.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\FlyEffects\Models\FlyEffectDataModel.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\FlyEffects\Clone.cs" />
-    <Compile Include="Assets\Scripts\Weapon\GunShootTriggerVisualisation.cs" />
-    <Compile Include="Assets\Scripts\Weapon\GunShootVisualisation.cs" />
-    <Compile Include="Assets\Scripts\Weapon\GunMuzzleFlashEffect.cs" />
-    <Compile Include="Assets\Scripts\Weapon\GunMuzzleFlashLight.cs" />
     <Compile Include="Assets\Scripts\Weapon\GunShootTrigger.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\FlyEffects\Models\BulletCloneDataModel.cs" />
     <Compile Include="Assets\Scripts\Weapon\Model\GunShootDataModel.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\FlyEffects\Enumerators\EnumFlyEffectType.cs" />
     <Compile Include="Assets\Scripts\Weapon\GunShoot.cs" />
+    <Compile Include="Assets\Scripts\Weapon\GunShootTriggerVisualisation.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerWeapon.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\Enumerators\EnumBulletType.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\FlyEffects\Models\BulletChangeMagicTypeByTimeDataModel.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\FlyEffects\MineByTime.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\Models\BulletEffectsDataModel.cs" />
-    <Compile Include="Assets\Scripts\Weapon\Model\GunShootLightDataModel.cs" />
     <Compile Include="Assets\Scripts\Weapon\Model\GunVisualisationDataModel.cs" />
     <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerHUDVisualisation.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Bullet\BulletSpawnPoint.cs" />
     <Compile Include="Assets\Scripts\TimeObject.cs" />
     <Compile Include="Assets\Scripts\Weapon\Model\GunShootTriggerDataModel.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerWeaponVisualisation.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Model\GunShootLightDataModel.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
     <Compile Include="Assets\Scripts\Weapon\Model\Enumerators\EnumGunShootTriggerType.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyStats.cs" />
@@ -94,6 +91,8 @@
     <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\EnemyHitEffects\Enumerators\EnumEnemyHitEffectType.cs" />
     <Compile Include="Assets\Scripts\Weapon\Model\GunDataModel.cs" />
     <Compile Include="Assets\Scripts\Player\MouseLook.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\FlyEffects\FlyEffectPhysics.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Gun.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\FlyEffects\Path.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\NonEnemyHitEffects\Enumerators\EnumAlternativeHitEffectType.cs" />
     <Compile Include="Assets\Scripts\Weapon\Effects\Enumerators\EnumMagicType.cs" />
@@ -102,17 +101,17 @@
     <Compile Include="Assets\Scripts\Enemy\Debuff.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\FlyEffects\DangerZone.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\Bullet.cs" />
+    <Compile Include="Assets\Scripts\Player\Model\PlayerWeaponDataModel.cs" />
     <Compile Include="Assets\Scripts\Player\Movement.cs" />
+    <Compile Include="Assets\Scripts\Player\Model\PlayerWeaponVisualisationDataModel.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\FlyEffects\Models\BulletMineByTimeDataModel.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\FlyEffects\ChangeMagicTypeByTime.cs" />
     <Compile Include="Assets\Scripts\Player\Model\PlayerMovementStatsModel.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\NonEnemyHitEffects\Models\AlternativeHitEffectDataModel.cs" />
+    <Compile Include="Assets\Scripts\Weapon\GunShootVisualisation.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\FlyEffects\Models\BulletBlowDataModel.cs" />
+    <Compile Include="Assets\Scripts\Weapon\GunMuzzleFlashEffect.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\Models\BulletDataModel.cs" />
-    <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\FlyEffects\Models\BulletPathtDataModel.cs" />
-    <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\FlyEffects\MineByTime.cs" />
-    <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\FlyEffects\Models\BulletMineByTimeDataModel.cs" />
-    <Compile Include="Assets\Scripts\Weapon\Bullet\Effects\FlyEffects\FlyEffectPhysics.cs" />
-    <Compile Include="Assets\Scripts\Weapon\Gun.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

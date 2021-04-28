@@ -27,7 +27,7 @@ public class PlayerHUDVisualisation : MonoBehaviour
         HUDAnimator.Play("HideWeapon");
         isSwitched = false;
     }
-
+    /*
     public void SwitchWeaponModel()
     {
         InventoryComponent.ShowWeapon();
@@ -38,7 +38,7 @@ public class PlayerHUDVisualisation : MonoBehaviour
         InventoryComponent.EndSwitchWeapon();
         isSwitched = true;
     }
-
+    */
     void Update()
     {
         HorizontalAnimatorFloat = Input.GetAxis("Horizontal");

@@ -14,8 +14,6 @@ public class GunShoot : MonoBehaviour
 
     Bullet BulletExample;
 
-    Action StartShootEventHandler;
-
     float Distance;
     float BulletsCountPerOneShoot;
     bool getRangeFormCircle;
@@ -28,9 +26,6 @@ public class GunShoot : MonoBehaviour
 
     public void Construct(Transform ScopeTransform, Transform BulletSpawnPointTransform, GunShootDataModel GunShootData, BulletDataModel BulletData, Action StartShootEvent)
     {
-
-        StartShootEventHandler = StartShootEvent;
-
         ScopeTransformComponent = ScopeTransform;
         BulletSpawnPointTransformComponent = BulletSpawnPointTransform;
 
@@ -41,16 +36,16 @@ public class GunShoot : MonoBehaviour
         RangeY = GunShootData.RangeY;
         GunShootType = GunShootData.GunShootType;
 
-        StartShootEventHandler += StartShoot;
+        StartShootEvent += StartShoot;
 
         if (BulletExample != null)
             Destroy(BulletExample.gameObject);
         BulletExample = SpawnBulletExample(BulletData);
     }
 
-    public void DestroyComponent()
+    public void DestroyComponent(Action StartShootEvent)
     {
-        StartShootEventHandler -= StartShoot;
+        StartShootEvent -= StartShoot;
         Destroy(BulletExample.gameObject);
         Destroy(this);
     }
