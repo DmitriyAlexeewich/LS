@@ -19,11 +19,9 @@ public class Gun : MonoBehaviour
         var gunShootVisualisations = this.gameObject.GetComponentsInChildren<GunShootVisualisation>();
         for (int i = 0; i < gunShootVisualisations.Length; i++)
         {
-            //Исправить subscribe
-            gunShootVisualisations[i].Construct(GunData.GunVisualisationData, GunShootTriggerComponent.GetStartShootEvent(), GunShootTriggerComponent.GetStopShootEvent());
+            gunShootVisualisations[i].Construct(GunData.GunVisualisationData, GunShootTriggerComponent, GunData.ShootTriggerData.ShootLoadTime);
             GunShoot gunShootComponent = gunShootVisualisations[i].gameObject.AddComponent<GunShoot>();
-            gunShootComponent.Construct(ScopeTransform, gunShootVisualisations[i].GetBulletSpawnPointTransform(), GunData.GunShootData, GunData.BulletData,
-                                        GunShootTriggerComponent.GetStartShootEvent());
+            gunShootComponent.Construct(ScopeTransform, gunShootVisualisations[i].GetBulletSpawnPointTransform(), GunData.GunShootData, GunData.BulletData, GunShootTriggerComponent);
         }        
     }
 
@@ -32,15 +30,15 @@ public class Gun : MonoBehaviour
         var gunShootVisualisations = this.gameObject.GetComponentsInChildren<GunShootVisualisation>();
         for (int i = 0; i < gunShootVisualisations.Length; i++)
         {
-            gunShootVisualisations[i].DestroyComponent(GunShootTriggerComponent.GetStartShootEvent(), GunShootTriggerComponent.GetStopShootEvent());
+            gunShootVisualisations[i].DestroyComponent(GunShootTriggerComponent);
             GunShoot gunShootComponent = gunShootVisualisations[i].gameObject.GetComponent<GunShoot>();
-            gunShootComponent.DestroyComponent(GunShootTriggerComponent.GetStartShootEvent());
+            gunShootComponent.DestroyComponent(GunShootTriggerComponent);
         }
 
         GunShootTriggerVisualisation gunShootTriggerVisualisation = this.gameObject.GetComponent<GunShootTriggerVisualisation>();
-        gunShootTriggerVisualisation.DestroyComponent(GunShootTriggerComponent.GetStartShootEvent());
+        gunShootTriggerVisualisation.DestroyComponent(GunShootTriggerComponent);
 
-
+        GunShootTriggerComponent.DestroyComponent();
 
         Destroy(this);
     }

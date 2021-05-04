@@ -11,15 +11,11 @@ public class MouseLook : MonoBehaviour
     float XAxisClamp;
     Transform PlayerTransform;
 
-    public void Construct(PlayerMouseLookStatsModel PlayerMouseLookStats, Transform NewCameraTransform)
+    public void Construct(PlayerMouseLookStatsModel PlayerMouseLookStats, Transform NewCameraTransform, Transform NewPlayerTransform)
     {
         MouseSensitivity = PlayerMouseLookStats.MouseSensitivity;
         CameraTransform = NewCameraTransform;
-    }
-
-    void Awake()
-    {
-        PlayerTransform = this.gameObject.GetComponent<Transform>();
+        PlayerTransform = NewPlayerTransform;
     }
 
     void Update()

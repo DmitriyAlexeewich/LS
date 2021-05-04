@@ -1,13 +1,16 @@
 ﻿using Assets.Scripts.Weapon.Model;
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class GunMuzzleFlashLight : MonoBehaviour
 {
     Light ShootLightComponent;
+    float ShootLightLifeTime;
 
+    IEnumerator MuzzleFlashLightCoroutine;
 
-    public void Construct(GunShootLightDataModel GunShootLightData, Action StartShootEvent, Action StopShootEvent)
+    public void Construct(GunShootLightDataModel GunShootLightData, GunShootTrigger GunShootTriggerComponent, float ShootLoadTime)
     {
         ShootLightComponent = this.gameObject.GetComponent<Light>();
 
@@ -15,24 +18,31 @@ public class GunMuzzleFlashLight : MonoBehaviour
         ShootLightComponent.intensity = GunShootLightData.ShootLightIntensity;
         ShootLightComponent.color = GunShootLightData.ShootLightColor;
         ShootLightComponent.enabled = false;
+        ShootLightLifeTime = ShootLoadTime * GunShootLightData.ShootLightTimePercentByShootLoadTime;
 
-        StartShootEvent += PlayMuzzleFlashLight;
-        StopShootEvent += StopMuzzleFlashLight;
+        GunShootTriggerComponent.StartShootEvent += StartMuzzleFlashLightCoroutine;
     }
 
-    public void DestroyComponent(Action StartShootEvent, Action StopShootEvent)
+    public void DestroyComponent(GunShootTrigger GunShootTriggerComponent)
     {
-        StartShootEvent -= PlayMuzzleFlashLight;
-        StopShootEvent -= StopMuzzleFlashLight;
+        GunShootTriggerComponent.StartShootEvent -= StartMuzzleFlashLightCoroutine;
         Destroy(this);
     }
 
-    void PlayMuzzleFlashLight()
+    void StartMuzzleFlashLightCoroutine()
+    {
+        MuzzleFlashLightCoroutine = MuzzleFlashLight(ShootLightLifeTime);
+        StartCoroutine(MuzzleFlashLightCoroutine);
+    }
+
+    IEnumerator MuzzleFlashLight(float DeltaShootLightLifeTime)
     {
         ShootLightComponent.enabled = true;
-    }
-    void StopMuzzleFlashLight()
-    {
+        while (DeltaShootLightLifeTime > 0)
+        {
+            DeltaShootLightLifeTime -= Time.deltaTime;
+            yield return null;
+        }
         ShootLightComponent.enabled = false;
     }
 }

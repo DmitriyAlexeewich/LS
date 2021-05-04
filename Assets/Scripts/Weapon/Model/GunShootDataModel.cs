@@ -14,8 +14,6 @@ namespace Assets.Scripts.Weapon.Model
     [System.Serializable]
     public class GunShootDataModel
     {
-        public float LifeTimeModifier { get { return _LifeTimeModifier; } }
-        public float SpeedModifier { get { return _SpeedModifier; } }
         public float Distance { get { return _Distance; } }
         public int BulletsCountPerOneShoot { get { return _BulletsCountPerOneShoot; } }
         public bool getRangeFormCircle { get { return _getRangeFormCircle; } }
@@ -24,10 +22,6 @@ namespace Assets.Scripts.Weapon.Model
         public EnumGunShootType GunShootType { get { return _GunShootType; } }
 
 
-        [SerializeField]
-        private float _LifeTimeModifier;
-        [SerializeField]
-        private float _SpeedModifier;
         [SerializeField]
         private float _Distance;
         [SerializeField]
@@ -46,19 +40,11 @@ namespace Assets.Scripts.Weapon.Model
                                  int NewBulletsCountPerOneShoot, bool NewGetRangeFormCircle, float NewRangeX,
                                  float NewRangeY, EnumGunShootType NewGunShootType)
         {
-            if (NewLifeTimeModifier > 0)
-                _LifeTimeModifier = NewLifeTimeModifier;
-            else
-                _LifeTimeModifier = 1;
-            if (NewSpeedModifier > 0)
-                _SpeedModifier = NewSpeedModifier;
-            else
-                _SpeedModifier = 1;
             if (NewDistance > 0)
                 _Distance = NewDistance;
             else
                 _Distance = 1;
-            if (NewBulletsCountPerOneShoot > 0)
+            if (NewBulletsCountPerOneShoot >= 0)
                 _BulletsCountPerOneShoot = NewBulletsCountPerOneShoot;
             else
                 _BulletsCountPerOneShoot = 1;
@@ -66,11 +52,11 @@ namespace Assets.Scripts.Weapon.Model
             if (NewRangeX > 0)
                 _RangeX = NewRangeX;
             else
-                _RangeX = 1;
+                _RangeX = 0;
             if (NewRangeY > 0)
                 _RangeY = NewRangeY;
             else
-                _RangeY = 1;
+                _RangeY = 0;
             _GunShootType = NewGunShootType;
         }
     }

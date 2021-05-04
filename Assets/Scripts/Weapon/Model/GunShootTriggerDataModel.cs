@@ -12,20 +12,20 @@ namespace Assets.Scripts.Weapon.Model
     public class GunShootTriggerDataModel
     {
         public EnumGunShootTriggerType GunShootTriggerType { get { return _GunShootTriggerType; } }
-        public float WaitingTime { get { return _WaitingTime; } }
+        public float ShootLoadTime { get { return _ShootLoadTime; } }
 
         [SerializeField]
         private EnumGunShootTriggerType _GunShootTriggerType;
         [SerializeField]
-        private float _WaitingTime;
+        private float _ShootLoadTime;
 
-        public GunShootTriggerDataModel(EnumGunShootTriggerType NewGunShootTriggerType, float NewWaitingTime)
+        public GunShootTriggerDataModel(EnumGunShootTriggerType NewGunShootTriggerType, float NewShootLoadTime)
         {
             _GunShootTriggerType = NewGunShootTriggerType;
-            if (NewWaitingTime > 0)
-                _WaitingTime = NewWaitingTime;
+            if ((NewShootLoadTime > 0) && (NewShootLoadTime < 1))
+                _ShootLoadTime = NewShootLoadTime;
             else
-                _WaitingTime = 1;
+                _ShootLoadTime = 0.5f;
         }
     }
 }

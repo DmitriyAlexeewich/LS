@@ -64,7 +64,7 @@ public class PlayerWeapon : MonoBehaviour
 
     void Shoot()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
             GunComponent.StartShoot();
         if(Input.GetMouseButtonUp(0))
             GunComponent.StopShoot();

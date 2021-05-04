@@ -12,7 +12,7 @@ public class GunShoot : MonoBehaviour
     Transform ScopeTransformComponent;
     Transform BulletSpawnPointTransformComponent;
 
-    Bullet BulletExample;
+    Transform BulletExample;
 
     float Distance;
     float BulletsCountPerOneShoot;
@@ -20,11 +20,12 @@ public class GunShoot : MonoBehaviour
     float RangeX;
     float RangeY;
     EnumGunShootType GunShootType;
+    BulletDataModel BulletData;
 
     IEnumerator ShootCoroutine;
     System.Random Rand = new System.Random((int)DateTime.Now.Ticks);
 
-    public void Construct(Transform ScopeTransform, Transform BulletSpawnPointTransform, GunShootDataModel GunShootData, BulletDataModel BulletData, Action StartShootEvent)
+    public void Construct(Transform ScopeTransform, Transform BulletSpawnPointTransform, GunShootDataModel GunShootData, BulletDataModel NewBulletData, GunShootTrigger GunShootTriggerComponent)
     {
         ScopeTransformComponent = ScopeTransform;
         BulletSpawnPointTransformComponent = BulletSpawnPointTransform;
@@ -35,17 +36,18 @@ public class GunShoot : MonoBehaviour
         RangeX = GunShootData.RangeX;
         RangeY = GunShootData.RangeY;
         GunShootType = GunShootData.GunShootType;
+        BulletData = NewBulletData;
 
-        StartShootEvent += StartShoot;
+        GunShootTriggerComponent.StartShootEvent += StartShoot;
 
         if (BulletExample != null)
             Destroy(BulletExample.gameObject);
-        BulletExample = SpawnBulletExample(BulletData);
+        BulletExample = SpawnBulletExample();
     }
 
-    public void DestroyComponent(Action StartShootEvent)
+    public void DestroyComponent(GunShootTrigger GunShootTriggerComponent)
     {
-        StartShootEvent -= StartShoot;
+        GunShootTriggerComponent.StartShootEvent -= StartShoot;
         Destroy(BulletExample.gameObject);
         Destroy(this);
     }
@@ -63,10 +65,14 @@ public class GunShoot : MonoBehaviour
         for (int i = 0; i < BulletsCountPerOneShoot; i++)
         {
             var destinationPoint = GetDestinationPointWithRange(bulletDestination);
-            var bulletTransform = SpawnBullet(BulletExample.gameObject);
+            var bulletTransform = SpawnBullet(BulletExample);
             bulletTransform.gameObject.SetActive(true);
             if (bulletTransform != null)
-                bulletTransform.gameObject.GetComponent<Bullet>().StartBullet(GunShootType, ScopeTransformComponent.position, destinationPoint, bulletTransform);
+            {
+                Bullet bulletComponent = bulletTransform.gameObject.AddComponent<Bullet>();
+                bulletComponent.Construct(BulletData);
+                bulletComponent.StartBullet(GunShootType, ScopeTransformComponent.position, destinationPoint, bulletTransform);
+            }
             yield return null;
         }
     }
@@ -109,7 +115,7 @@ public class GunShoot : MonoBehaviour
         return (float)Rand.NextDouble() * (Maximum - Minimum) + Minimum;
     }
 
-    Bullet SpawnBulletExample(BulletDataModel BulletData)
+    Transform SpawnBulletExample()
     {
         Transform bulletTransform = GameObject.CreatePrimitive(PrimitiveType.Sphere).GetComponent<Transform>();
         bulletTransform.position = this.gameObject.GetComponent<Transform>().position;
@@ -117,12 +123,10 @@ public class GunShoot : MonoBehaviour
         bulletTransform.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         bulletTransform.gameObject.GetComponent<Collider>().isTrigger = true;
         bulletTransform.gameObject.SetActive(false);
-        Bullet bulletComponent = bulletTransform.gameObject.AddComponent<Bullet>();
-        bulletComponent.Construct(BulletData);
-        return bulletComponent;
+        return bulletTransform;
     }
 
-    Transform SpawnBullet(GameObject BulletGameOject)
+    Transform SpawnBullet(Transform BulletGameOject)
     {
         return Instantiate(BulletGameOject, BulletSpawnPointTransformComponent.position, Quaternion.Euler(Vector3.zero)).GetComponent<Transform>();    
     }

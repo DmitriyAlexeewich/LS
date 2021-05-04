@@ -27,12 +27,29 @@ public class Inventory : MonoBehaviour
 
 
     List<PlayerWeapon> PlayerWeapons;
-
-    PlayerHUDVisualisation PlayerHUDVisualisationComponent;
+    PlayerHandVisualisation PlayerHandVisualisationComponent;
     Movement PlayerMovementComponent;
     MouseLook PlayerMouseLookComponent;
-    int CurrentWeaponIndex = 0;
 
+
+    void Start()
+    {
+        PlayerMovementComponent = this.gameObject.AddComponent<Movement>();
+        PlayerMovementComponent.Construct(PlayerMovementStats);
+
+        PlayerMouseLookComponent = this.gameObject.AddComponent<MouseLook>();
+        PlayerMouseLookComponent.Construct(PlayerMouseLookStats, MainCameraTransform, PlayerMovementComponent.GetPlayerTransform());
+
+        PlayerHandVisualisationComponent = WeaponBoneTransform.gameObject.GetComponent<PlayerHandVisualisation>();
+        PlayerHandVisualisationComponent.Construct(PlayerMovementComponent.GetCharacterController());
+
+        LoadGuns(TestPlayerWeaponsData);
+    }
+
+    void Update()
+    {
+        ChangeGun();
+    }
 
     void LoadGuns(List<PlayerWeaponDataModel> PlayerWeaponsData)
     {
@@ -54,62 +71,29 @@ public class Inventory : MonoBehaviour
         if (PlayerWeapons.Count > 0)
             PlayerWeapons[0].ShowWeapon();
     }
-    
-    /*
-        public void StartSwitchWeapon(GunDataModel CurrentWeapon, int Direction)
-        {
-            PlayerWeaponComponent.enabled = false;
 
-            CurrentWeaponIndex = Guns.IndexOf(CurrentWeapon) + Direction;
-            if (CurrentWeaponIndex < 0)
-                CurrentWeaponIndex = Guns.Count - 1;
-            if (CurrentWeaponIndex >= Guns.Count)
-                CurrentWeaponIndex = 0;
-
-            PlayerWeaponComponent.Construct(Guns[CurrentWeaponIndex]);
-            PlayerHUDVisualisationComponent.StartSwitchWeapon();
-        }
-
-        public void ShowWeapon()
-        {
-            for (int i = 0; i < PlayerWeaponVisualisationes.Count; i++)
-            {
-                PlayerWeaponVisualisationes[i].HideWeapon();
-                if (PlayerWeaponVisualisationes[i].WeaponId == Guns[CurrentWeaponIndex].Id)
-                    PlayerWeaponVisualisationes[i].ShowWeapon();
-            }
-        }
-
-        public void EndSwitchWeapon()
-        {
-            PlayerWeaponComponent.enabled = true;
-        }
-    */
-
-    void Start()
-    {
-        PlayerMovementComponent = this.gameObject.AddComponent<Movement>();
-        PlayerMovementComponent.Construct(PlayerMovementStats);
-
-        PlayerMouseLookComponent = this.gameObject.AddComponent<MouseLook>();
-        PlayerMouseLookComponent.Construct(PlayerMouseLookStats, MainCameraTransform);
-
-        PlayerHUDVisualisationComponent = WeaponBoneTransform.gameObject.GetComponent<PlayerHUDVisualisation>();
-        PlayerHUDVisualisationComponent.Construct(PlayerMovementStats.DashSpeed, this, this.gameObject.GetComponent<CharacterController>());//this.gameObject.GetComponent<CharacterController>() -> event
-
-        LoadGuns(TestPlayerWeaponsData);
-    }
-
-    void Update()
-    {
-        ChangeGun();
-    }
-    
     void ChangeGun()
     {
         if ((Input.GetAxis("MouseScroll") != 0) && (PlayerWeapons.Count > 1))
         {
-            //StartSwitchWeapon(Guns[CurrentWeaponIndex], (Input.GetAxis("MouseScroll") > 0 ? 1 : -1));
+            SwitchWeapon((Input.GetAxis("MouseScroll") > 0 ? 1 : -1));
+        }
+    }
+
+    void SwitchWeapon(int Direction)
+    {
+        for (int i = 0; i < PlayerWeapons.Count; i++)
+        {
+            if (PlayerWeapons[i].isActiveAndEnabled)
+            {
+                var currentWeaponIndex = i + Direction;
+                if (currentWeaponIndex < 0)
+                    currentWeaponIndex = PlayerWeapons.Count - 1;
+                else if (i >= PlayerWeapons.Count)
+                    currentWeaponIndex = 0;
+                PlayerHandVisualisationComponent.StartSwitchWeapon(PlayerWeapons[i], PlayerWeapons[currentWeaponIndex]);
+                break;
+            }
         }
     }
 

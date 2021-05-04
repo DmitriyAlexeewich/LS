@@ -12,8 +12,8 @@ public class Movement : MonoBehaviour{
 	float DashDistance;
 	float DashSpeed;
 
-	Transform Player;
-	CharacterController PlayerRig;
+	Transform PlayerTransform;
+	CharacterController CharacterControllerComponent;
 	Vector3 Velocity;
 	int JumpCounter;
 	Vector3 DashPosition;
@@ -26,22 +26,29 @@ public class Movement : MonoBehaviour{
 		MaxJumps = PlayerMovementStats.MaxJumps;
 		DashDistance = PlayerMovementStats.DashDistance;
 		DashSpeed = PlayerMovementStats.DashSpeed;
-	}
 
-	void Awake()
-	{
-		Player = this.gameObject.GetComponent<Transform>();
-		PlayerRig = this.gameObject.GetComponent<CharacterController>();
+		PlayerTransform = this.gameObject.GetComponent<Transform>();
+		CharacterControllerComponent = this.gameObject.GetComponent<CharacterController>();
 		JumpCounter = 0;
 	}
 
+	public CharacterController GetCharacterController()
+	{
+		return CharacterControllerComponent;
+	}
+
+	public Transform GetPlayerTransform()
+	{
+		return PlayerTransform;
+	}
+
 	void Update(){
-		if (PlayerRig.isGrounded && Velocity.y < 0)
+		if (CharacterControllerComponent.isGrounded && Velocity.y < 0)
 		{
 			Velocity.y = -2f;
 			JumpCounter = 0;
 		}
-		if (Input.GetButtonDown("Jump") && (PlayerRig.isGrounded || JumpCounter < MaxJumps))
+		if (Input.GetButtonDown("Jump") && (CharacterControllerComponent.isGrounded || JumpCounter < MaxJumps))
 		{
 			Velocity.y = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 			JumpCounter++;
@@ -50,8 +57,8 @@ public class Movement : MonoBehaviour{
 		Velocity.y += Gravity * Time.deltaTime;
 		if (DashPosition == new Vector3(0f, 0f, 0f))
 		{
-			PlayerRig.Move(Player.TransformDirection(MoveVector) * Speed * Time.deltaTime);
-			PlayerRig.Move(Velocity * Time.deltaTime);
+			CharacterControllerComponent.Move(PlayerTransform.TransformDirection(MoveVector) * Speed * Time.deltaTime);
+			CharacterControllerComponent.Move(Velocity * Time.deltaTime);
 		}
 		Dash(MoveVector);
     }
@@ -59,23 +66,23 @@ public class Movement : MonoBehaviour{
 	void Dash(Vector3 MoveVector) {
 		if (DashPosition == new Vector3(0f,0f,0f))
 		{
-			MoveVector = Player.TransformDirection(MoveVector);
+			MoveVector = PlayerTransform.TransformDirection(MoveVector);
 			if (Input.GetButtonDown("Dash"))
 			{
 				RaycastHit Hit;
-				if (Physics.Raycast(Player.position, MoveVector, out Hit, DashDistance))
+				if (Physics.Raycast(PlayerTransform.position, MoveVector, out Hit, DashDistance))
 				{
-					DashPosition = Vector3.MoveTowards(Hit.point, Player.position, 1f);
+					DashPosition = Vector3.MoveTowards(Hit.point, PlayerTransform.position, 1f);
 				}
 				else {
-					DashPosition = Player.position + MoveVector * DashDistance;
+					DashPosition = PlayerTransform.position + MoveVector * DashDistance;
 				}
 			}
 		}
 		else
 		{
-			Player.position = Vector3.Lerp(Player.position, DashPosition, Time.deltaTime * DashSpeed);
-			if (Mathf.Abs((int)Vector3.Distance(Player.position, DashPosition)) < 1)
+			PlayerTransform.position = Vector3.Lerp(PlayerTransform.position, DashPosition, Time.deltaTime * DashSpeed);
+			if (Mathf.Abs((int)Vector3.Distance(PlayerTransform.position, DashPosition)) < 1)
 				DashPosition = new Vector3(0f, 0f, 0f);
 		}
 	}

@@ -13,7 +13,7 @@ public class GunShootTrigger : MonoBehaviour
 
 
     EnumGunShootTriggerType GunShootTriggerType;
-    float WaitingTime;
+    float ShootLoadTime;
 
 
     float WaitingTimeStep = 0.001f;
@@ -22,7 +22,7 @@ public class GunShootTrigger : MonoBehaviour
     public void Construct(GunShootTriggerDataModel GunShootTriggerData)
     {
         GunShootTriggerType = GunShootTriggerData.GunShootTriggerType;
-        WaitingTime = GunShootTriggerData.WaitingTime;
+        ShootLoadTime = GunShootTriggerData.ShootLoadTime;
     }
 
     public void StartShootCoroutine()
@@ -31,14 +31,11 @@ public class GunShootTrigger : MonoBehaviour
         {
             switch (GunShootTriggerType)
             {
-                case EnumGunShootTriggerType.Click:
-                    ShootCoroutine = ClickShoot(WaitingTime);
-                    break;
                 case EnumGunShootTriggerType.Press:
-                    ShootCoroutine = ClickShoot(WaitingTime);
+                    ShootCoroutine = ClickShoot(ShootLoadTime);
                     break;
                 case EnumGunShootTriggerType.Hold:
-                    ShootCoroutine = HoldShoot(WaitingTime);
+                    ShootCoroutine = HoldShoot(ShootLoadTime);
                     break;
             }
             StartCoroutine(ShootCoroutine);
@@ -47,46 +44,72 @@ public class GunShootTrigger : MonoBehaviour
 
     public void StopShootCoroutine()
     {
-        StopCoroutine(ShootCoroutine);
-    }
-
-    IEnumerator Shoot(float WaitingTime)
-    {
-        var timer = WaitingTime;
-        if (GunShootTriggerType != EnumGunShootTriggerType.Hold)
-            timer = 0;
-        while (timer >= -WaitingTimeStep)
+        if (GunShootTriggerType == EnumGunShootTriggerType.Hold)
         {
-            if (GunShootTriggerType == EnumGunShootTriggerType.Click)
-            {
-                StartShootEvent?.Invoke();
-                break;
-            }
-            else if(timer <= 0)
-            {
-                StartShootEvent?.Invoke();
-                timer = WaitingTime;
-                if (GunShootTriggerType == EnumGunShootTriggerType.Hold)
-                    break;
-            }
-            timer -= WaitingTimeStep;
-            if (timer <= WaitingTime * 0.5f)
-                StopShootEvent();
-            yield return new WaitForSeconds(WaitingTimeStep);
+            StopCoroutine(ShootCoroutine);
+            ShootCoroutine = null;
+            StopShootEvent?.Invoke();
         }
     }
 
-    IEnumerator ClickShoot(float WaitingTime)
+    public void DestroyComponent()
     {
-        StartShootEvent();
-        yield return new WaitForSeconds(WaitingTime);
+        StopShootCoroutine();
+        Destroy(this);
+    }
+    
+    /*
+        IEnumerator Shoot(float WaitingTime)
+        {
+            var timer = WaitingTime;
+            if (GunShootTriggerType != EnumGunShootTriggerType.Hold)
+                timer = 0;
+            while (timer >= -WaitingTimeStep)
+            {
+                if (GunShootTriggerType == EnumGunShootTriggerType.Click)
+                {
+                    StartShootEvent?.Invoke();
+                    break;
+                }
+                else if(timer <= 0)
+                {
+                    StartShootEvent?.Invoke();
+                    timer = WaitingTime;
+                    if (GunShootTriggerType == EnumGunShootTriggerType.Hold)
+                        break;
+                }
+                timer -= WaitingTimeStep;
+                if (timer <= WaitingTime * 0.5f)
+                    StopShootEvent();
+                yield return new WaitForSeconds(WaitingTimeStep);
+            }
+        }
+    */
+    
+    IEnumerator ClickShoot(float DeltaShootLoadTime)
+    {
+        yield return null;
+        StartShootEvent?.Invoke();
+        while (DeltaShootLoadTime > 0)
+        {
+            DeltaShootLoadTime -= Time.deltaTime;
+            yield return null;
+        }
+        StopShootEvent?.Invoke();
         ShootCoroutine = null;
     }
 
-    IEnumerator HoldShoot(float WaitingTime)
+    IEnumerator HoldShoot(float DeltaShootLoadTime)
     {
-        yield return new WaitForSeconds(WaitingTime);
+        yield return null;
+        StopShootEvent?.Invoke();
+        while (DeltaShootLoadTime > 0)
+        {
+            DeltaShootLoadTime -= Time.deltaTime;
+            yield return null;
+        }
         StartShootEvent?.Invoke();
         ShootCoroutine = null;
     }
+
 }

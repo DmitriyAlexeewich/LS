@@ -9,7 +9,6 @@ namespace Assets.Scripts.Weapon.Model.Enumerators
     public enum EnumGunShootTriggerType
     {
         Hold = 1,
-        Click = 2,
-        Press = 3
+        Press = 2
     }
 }
