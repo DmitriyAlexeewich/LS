@@ -81,29 +81,6 @@ public class Bullet : MonoBehaviour
         StartCoroutine(BulletHit(hit));
     }
 
-    public void AddDamage(float DamageFactor, bool isMultiply = false)
-    {
-        if (isMultiply)
-            Damage *= DamageFactor;
-        else
-            Damage += DamageFactor;
-    }
-
-    public BulletEffectsDataModel GetCurrendBulletEffectsData()//
-    {
-        return new BulletEffectsDataModel();
-    }
-
-    public EnumMagicType GetMagicType()
-    {
-        return MagicType;
-    }
-
-    public void SetMagicType(EnumMagicType NewMagicType)
-    {
-        MagicType = NewMagicType;
-    }
-
     IEnumerator FlyBullet()
     {
         var hit = new RaycastHit();
