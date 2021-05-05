@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Stats.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
@@ -59,7 +60,7 @@ public class DynamicStat : MonoBehaviour
         if (ApplyChangesToCurrentValueCoroutine == null)
         {
             ApplyChangesToCurrentValueCoroutine = ApplyChangesToCurrentValue();
-            StartCoroutine(AddValueCoroutine);
+            StartCoroutine(ApplyChangesToCurrentValueCoroutine);
         }
     }
 
@@ -77,7 +78,7 @@ public class DynamicStat : MonoBehaviour
     {
         while (true)
         {
-            var timer = 0;
+            float timer = 0;
             while (timer < 1)
                 timer += Time.deltaTime;
             for (int i = 0; i < PercentageFactors.Count; i++)

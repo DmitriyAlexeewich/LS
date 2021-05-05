@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts.Stats.Model
 {
@@ -11,15 +12,12 @@ namespace Assets.Scripts.Stats.Model
     {
         public int Id { get { return _Id; } }
         public float Added { get { return _Added; } }
-        public float OriginalValue { get { return _OriginalValue; } }
 
 
         [SerializeField]
         private int _Id;
         [SerializeField]
         private float _Added;
-        [SerializeField]
-        private float _OriginalValue;
 
         public AddedModel(int NewId, float NewPercentageFactor, float? NewOriginalValue = null)
         {
@@ -29,8 +27,6 @@ namespace Assets.Scripts.Stats.Model
                 _Added = NewPercentageFactor;
             else
                 _Added = 0;
-            if (NewOriginalValue != null)
-                _OriginalValue = NewOriginalValue.Value;
         }
     }
 }
