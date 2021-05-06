@@ -77,8 +77,12 @@ public class Bullet : MonoBehaviour
     void RaycastBullet(Vector3 Start)
     {
         var hit = new RaycastHit();
-        var isBulletRaycastHited = isBulletRaycastHit(Start, BulletTransformComponent.position, ref hit);
-        StartCoroutine(BulletHit(hit));
+        isBulletRaycastHit(Start, BulletTransformComponent.position, ref hit);
+        if (hit.collider != null)
+        {
+            
+        }
+        BulletHit(hit);
     }
 
     IEnumerator FlyBullet()
@@ -87,15 +91,14 @@ public class Bullet : MonoBehaviour
         //AddFlyEffect();
         while ((LifeTime > 0) && (!isBulletPhysicsHit(ref hit)))
         {
-            MoveBullet();
+            BulletTransformComponent.position += BulletTransformComponent.forward * Speed * Time.deltaTime;
             LifeTime -= Time.deltaTime;
             yield return null;
         }
-        BulletHitCoroutine = BulletHit(hit);
-        StartCoroutine(BulletHitCoroutine);
+        BulletHit(hit);
     }
 
-    IEnumerator BulletHit(RaycastHit Hit)
+    void BulletHit(RaycastHit Hit)
     {
         if (Hit.collider != null)
         {
@@ -124,11 +127,6 @@ public class Bullet : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    void MoveBullet()
-    {
-        BulletTransformComponent.position += BulletTransformComponent.forward * Speed * Time.deltaTime;
-    }
-
     bool isBulletPhysicsHit(ref RaycastHit Hit)
     {
         for (int i = 0; i < CheckHitPoints.Count; i++ )
@@ -145,65 +143,5 @@ public class Bullet : MonoBehaviour
         if (Physics.Linecast(Start, End, out Hit))
             return true;
         return false;
-    }
-    /*
-    void CreateRaycastFlyEffect(RaycastHit Hit, bool isBulletRaycastHited)
-    {
-        if (isBulletRaycastHited)
-        {
-            switch (BulletEffectsData.BulletFlyEffect.EffectType)
-            {
-                case EnumFlyEffectType.BlowByDistancePercent:
-                    break;
-                case EnumFlyEffectType.Ricochet:
-                    break;
-                case EnumFlyEffectType.Clone:
-                    break;
-                case EnumFlyEffectType.IgnoreWall:
-                    break;
-                case EnumFlyEffectType.ReverseLink:
-                    break;
-                case EnumFlyEffectType.Dublicate:
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-    */
-    void AddFlyEffect(FlyEffectDataModel FlyEffectData)
-    {
-        switch (FlyEffectData.EffectType)
-        {
-            case EnumFlyEffectType.GroundPath:
-                var groundPathEffectComponent = this.gameObject.AddComponent<Path>();
-                groundPathEffectComponent.Construct(FlyEffectData.BulletPathFlyEffect, BulletTransformComponent, true);
-                FlyEffectCoroutine = groundPathEffectComponent.GetFlyEffectCoroutine();
-                break;
-            case EnumFlyEffectType.DamageUp:
-                var damageUpEffectComponent = this.gameObject.AddComponent<DamageUp>();
-                damageUpEffectComponent.Construct(FlyEffectData.BulletDamageUpFlyEffect, this);
-                FlyEffectCoroutine = damageUpEffectComponent.GetFlyEffectCoroutine();
-                break;
-            case EnumFlyEffectType.DangerZone:
-                var dangerZoneEffectComponent = this.gameObject.AddComponent<DangerZone>();
-                dangerZoneEffectComponent.Construct(FlyEffectData.BulletDangerZoneFlyEffect, BulletTransformComponent, MagicType);
-                FlyEffectCoroutine = dangerZoneEffectComponent.GetFlyEffectCoroutine();
-                break;
-            case EnumFlyEffectType.FlyPath:
-                var flyPathEffectComponent = this.gameObject.AddComponent<Path>();
-                flyPathEffectComponent.Construct(FlyEffectData.BulletPathFlyEffect, BulletTransformComponent, false);
-                FlyEffectCoroutine = flyPathEffectComponent.GetFlyEffectCoroutine();
-                break;
-            case EnumFlyEffectType.MineByTime:
-
-                break;
-            case EnumFlyEffectType.Link:
-
-                break;
-            default:
-                break;
-        }
-        StartCoroutine(FlyEffectCoroutine);
     }
 }

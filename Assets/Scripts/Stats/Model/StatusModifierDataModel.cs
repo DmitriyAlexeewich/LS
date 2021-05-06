@@ -1,13 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts.Stats.Model
 {
-
     [System.Serializable]
-    public class PercentageFactorModel
+    public class StatusModifierDataModel
     {
         public int Id { get { return _Id; } }
-        public float PercentageFactor { get { return _PercentageFactor; } }
+        public float ModifierValue { get { return _ModifierValue; } }
         public float OriginalValue { get { return _OriginalValue; } }
         public bool isMultiplier { get { return _isMultiplier; } }
         public bool isUpdated { get { return _isUpdated; } }
@@ -15,7 +19,7 @@ namespace Assets.Scripts.Stats.Model
         [SerializeField]
         private int _Id;
         [SerializeField]
-        private float _PercentageFactor;
+        private float _ModifierValue;
         [SerializeField]
         private float _OriginalValue;
         [SerializeField]
@@ -23,18 +27,23 @@ namespace Assets.Scripts.Stats.Model
         [SerializeField]
         private bool _isUpdated;
 
-        public PercentageFactorModel(int NewId, float NewPercentageFactor, float? NewOriginalValue = null, bool isMultiplierFlag = false, bool isUpdatedFlag = false)
+        public StatusModifierDataModel(int NewId, float NewModifierValue, bool isMultiplierFlag = false, bool isUpdatedFlag = false, float? NewOriginalValue = null)
         {
-            if (NewId >= 0)
-                _Id = NewId;
-            if (NewPercentageFactor > 0f)
-                _PercentageFactor = NewPercentageFactor;
-            else
-                _PercentageFactor = 1;
-            if (NewOriginalValue != null)
-                _OriginalValue = NewOriginalValue.Value;
             _isMultiplier = isMultiplierFlag;
             _isUpdated = isUpdatedFlag;
+
+            if (NewId >= 0)
+                _Id = NewId;
+            if (NewModifierValue > 0f)
+                _ModifierValue = NewModifierValue;
+            else
+            {
+                _ModifierValue = 0;
+                if(_isMultiplier)
+                    _ModifierValue = 1;
+            }
+            if (NewOriginalValue != null)
+                _OriginalValue = NewOriginalValue.Value;
         }
     }
 }
