@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Weapon.Bullet.Effects.Models;
+﻿using Assets.Scripts.Stats.Enumerators;
+using Assets.Scripts.Stats.Model;
+using Assets.Scripts.Weapon.Bullet.Effects.Models;
 using Assets.Scripts.Weapon.Bullet.Enumerators;
 using Assets.Scripts.Weapon.Effects.Enumerators;
 using System;
@@ -12,9 +14,7 @@ namespace Assets.Scripts.Weapon.Bullet.Models
     {
 
         public EnumBulletType BulletType { get { return _BulletType; } }
-        public float LifeTime { get { return _LifeTime; } }
-        public float Damage { get { return _Damage; } }
-        public float Speed { get { return _Speed; } }
+        public List<StatusDataModel> StatusesData { get { return _StatusesData; } }
         public float Diameter { get { return _Diameter; } }
         public List<Vector3> CheckHitPoints { get { return _CheckHitPoints; } }
         public float CheckHitPointsDistance { get { return _CheckHitPointsDistance; } }
@@ -25,11 +25,7 @@ namespace Assets.Scripts.Weapon.Bullet.Models
         [SerializeField]
         private EnumBulletType _BulletType;
         [SerializeField]
-        private float _LifeTime;
-        [SerializeField]
-        private float _Damage;
-        [SerializeField]
-        private float _Speed;
+        private List<StatusDataModel> _StatusesData = new List<StatusDataModel>();
         [SerializeField]
         private float _Diameter;
         [SerializeField]
@@ -46,11 +42,11 @@ namespace Assets.Scripts.Weapon.Bullet.Models
         {
             _BulletType = NewBulletType;
             if (NewLifeTime > 0)
-                _LifeTime = NewLifeTime;
+                StatusesData.Add(new StatusDataModel(EnumStatusType.LifeTime, 0f, NewLifeTime));
             else
-                _LifeTime = 1;
-            _Damage = NewDamage;
-            _Speed = NewSpeed;
+                StatusesData.Add(new StatusDataModel(EnumStatusType.LifeTime, 0f, 1));
+            StatusesData.Add(new StatusDataModel(EnumStatusType.Damage, NewDamage));
+            StatusesData.Add(new StatusDataModel(EnumStatusType.Speed, NewSpeed));
             if (NewDiameter > 0)
                 _Diameter = NewDiameter;
             else
@@ -61,8 +57,7 @@ namespace Assets.Scripts.Weapon.Bullet.Models
         public BulletDataModel(BulletDataModel OriginalBullet)
         {
             _BulletType = OriginalBullet.BulletType;
-            _Damage = OriginalBullet.Damage;
-            _Speed = OriginalBullet.Speed;
+            _StatusesData = OriginalBullet.StatusesData;
             _Diameter = OriginalBullet.Diameter;
             _CheckHitPoints = OriginalBullet.CheckHitPoints;
             _CheckHitPointsDistance = OriginalBullet.CheckHitPointsDistance;

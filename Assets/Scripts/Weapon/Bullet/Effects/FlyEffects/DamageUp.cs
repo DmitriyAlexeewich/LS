@@ -30,7 +30,7 @@ public class DamageUp : MonoBehaviour
                 timer += Time.deltaTime;
                 yield return null;
             }
-            BulletComponent.AddDamage(BulletDamageUpFlyEffect.DamageFactor);
+            //BulletComponent.AddDamage(BulletDamageUpFlyEffect.DamageFactor);
             timer = 0f;
             yield return null;
         }

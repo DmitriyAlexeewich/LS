@@ -16,7 +16,7 @@ public class GunShootTrigger : MonoBehaviour
     float ShootLoadTime;
 
 
-    float WaitingTimeStep = 0.001f;
+    //float WaitingTimeStep = 0.001f;
     IEnumerator ShootCoroutine;
 
     public void Construct(GunShootTriggerDataModel GunShootTriggerData)

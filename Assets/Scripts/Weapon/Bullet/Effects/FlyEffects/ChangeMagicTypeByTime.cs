@@ -31,7 +31,7 @@ public class ChangeMagicTypeByTime : MonoBehaviour
                 changeTimer += Time.deltaTime;
                 yield return null;
             }
-            BulletComponent.SetMagicType(BulletChangeMagicTypeByTimeFlyEffect.MagicTypes[i]);
+            //BulletComponent.SetMagicType(BulletChangeMagicTypeByTimeFlyEffect.MagicTypes[i]);
             yield return null;
         }
     }

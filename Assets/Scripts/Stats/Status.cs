@@ -16,41 +16,56 @@ public class Status : MonoBehaviour
     float CurrentValue;
     float MaxValue;
 
-    List<StatusModifierModel> StatusModifiers = new List<StatusModifierModel>();
+    List<StatusModifierDataModel> StatusModifiers = new List<StatusModifierDataModel>();
 
     IEnumerator DynamicModifyStatusCoroutine;
 
-    public void Construct(float StartValue, EnumStatusType NewStatusType, float? NewMaxValue = null)
+    public void Construct(StatusDataModel StatusData)
     {
-        CurrentValue = StartValue;
-        _StatusType = NewStatusType;
-        if (NewMaxValue != null)
-            MaxValue = NewMaxValue.Value;
+        CurrentValue = StatusData.CurrentValue;
+        _StatusType = StatusData.StatusType;
+        MaxValue = StatusData.MaxValue;
     }
 
     public int AddStatusModifier(float NewModifierValue, bool isMultiplierFlag = false, bool isUpdatedFlag = false)
     {
         var id = StatusModifiers.Count;
-        var statusModifier = new StatusModifierModel(id, NewModifierValue, CurrentValue, isMultiplierFlag, isUpdatedFlag);
+        var statusModifier = new StatusModifierDataModel(id, NewModifierValue, isMultiplierFlag, isUpdatedFlag, CurrentValue);
         StatusModifiers.Add(statusModifier);
         if (isUpdatedFlag)
             StartDynamicModifyStatusCoroutine();
         else
-            StaticModifyStatus(statusModifier);
+            AddStaticModifyStatus(statusModifier);
         return id;
     }
 
     public void RemoveStatusModifier(int Id)
     {
-        
+        var statusModifier = StatusModifiers.FirstOrDefault(item => item.Id == Id);
+        if (statusModifier != null)
+        {
+            if (statusModifier.isUpdated)
+                StopDynamicModifyStatusCoroutine(statusModifier);
+            else
+                SubtractStaticModifyStatus(statusModifier);
+            StatusModifiers.Remove(statusModifier);
+        }
     }
 
-    void StaticModifyStatus(StatusModifierModel StatusModifier)
+    void AddStaticModifyStatus(StatusModifierDataModel StatusModifierData)
     {
-        if (StatusModifier.isMultiplier)
-            CurrentValue *= StatusModifier.ModifierValue;
+        if (StatusModifierData.isMultiplier)
+            CurrentValue *= StatusModifierData.ModifierValue;
         else
-            CurrentValue += StatusModifier.ModifierValue;
+            CurrentValue += StatusModifierData.ModifierValue;
+    }
+
+    void SubtractStaticModifyStatus(StatusModifierDataModel StatusModifierData)
+    {
+        if (StatusModifierData.isMultiplier)
+            CurrentValue -= StatusModifierData.ModifierValue * StatusModifierData.OriginalValue - StatusModifierData.OriginalValue;
+        else
+            CurrentValue -= StatusModifierData.ModifierValue;
     }
 
     void StartDynamicModifyStatusCoroutine()
@@ -62,10 +77,13 @@ public class Status : MonoBehaviour
         }
     }
 
-    void StopDynamicModifyStatusCoroutine()
+    void StopDynamicModifyStatusCoroutine(StatusModifierDataModel StatusModifierData)
     {
-        StopCoroutine(DynamicModifyStatusCoroutine);
-        DynamicModifyStatusCoroutine = null;
+        if (StatusModifiers.FirstOrDefault(item => item.isUpdated && item != StatusModifierData) == null)
+        {
+            StopCoroutine(DynamicModifyStatusCoroutine);
+            DynamicModifyStatusCoroutine = null;
+        }
     }
 
     IEnumerator DynamicModifyStatus()

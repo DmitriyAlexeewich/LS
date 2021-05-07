@@ -28,25 +28,21 @@ public class Bullet : MonoBehaviour
     EnumMagicType MagicType;
 
 
-    IEnumerator FlyBulletCoroutine = null;
-    IEnumerator BulletHitCoroutine = null;
-    IEnumerator FlyEffectCoroutine = null;
+    IEnumerator FlyBulletCoroutine;
 
     public void Construct(BulletDataModel BulletData)
     {
         BulletType = BulletData.BulletType;
-        LifeTime = BulletData.LifeTime;
-        Damage = BulletData.Damage;
-        Speed = BulletData.Speed;
         Diameter = BulletData.Diameter;
         CheckHitPoints = BulletData.CheckHitPoints;
         CheckHitPointsDistance = BulletData.CheckHitPointsDistance;
         BulletEffects = BulletData.BulletEffects;
         MagicType = BulletData.MagicType;
-
-        FlyBulletCoroutine = null;
-        BulletHitCoroutine = null;
-        FlyEffectCoroutine = null;
+        for (int i = 0; i < BulletData.StatusesData.Count; i++)
+        {
+            var status = this.gameObject.AddComponent<Status>();
+            status.Construct(BulletData.StatusesData[i]);
+        }
     }
 
     public void StartBullet(EnumGunShootType GunShootType, Vector3 StartPosition, Vector3 DestinationPoint, Transform BulletTransform)
@@ -112,7 +108,6 @@ public class Bullet : MonoBehaviour
                 Debug.Log(1);
                 //SpawnNonEnemyHitEffect(hitTransform);
         }
-        yield return null;
         DestroyBullet();
     }
 
@@ -120,10 +115,6 @@ public class Bullet : MonoBehaviour
     {
         if(FlyBulletCoroutine != null)
             StopCoroutine(FlyBulletCoroutine);
-        if (BulletHitCoroutine != null)
-            StopCoroutine(BulletHitCoroutine);
-        if (FlyEffectCoroutine != null)
-            StopCoroutine(FlyEffectCoroutine);
         Destroy(this.gameObject);
     }
 

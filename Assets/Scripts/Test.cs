@@ -9,5 +9,6 @@ public class Test : MonoBehaviour
 	public void Te()
 	{
 		Debug.Log(1);
+
 	}
 }
