@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Light))]
 public class GunMuzzleFlashLight : MonoBehaviour
 {
     Light ShootLightComponent;

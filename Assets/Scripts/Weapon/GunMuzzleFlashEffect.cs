@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.VFX;
 
+[RequireComponent(typeof(VisualEffect))]
 public class GunMuzzleFlashEffect : MonoBehaviour
 {
 

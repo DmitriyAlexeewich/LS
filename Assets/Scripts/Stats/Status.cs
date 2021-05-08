@@ -11,9 +11,10 @@ using UnityEngine;
 public class Status : MonoBehaviour
 {
     public EnumStatusType StatusType { get { return _StatusType; } }
+    public float CurrentValue { get { return _CurrentValue; } }
 
     EnumStatusType _StatusType;
-    float CurrentValue;
+    float _CurrentValue;
     float MaxValue;
 
     List<StatusModifierDataModel> StatusModifiers = new List<StatusModifierDataModel>();
@@ -22,7 +23,7 @@ public class Status : MonoBehaviour
 
     public void Construct(StatusDataModel StatusData)
     {
-        CurrentValue = StatusData.CurrentValue;
+        _CurrentValue = StatusData.CurrentValue;
         _StatusType = StatusData.StatusType;
         MaxValue = StatusData.MaxValue;
     }
@@ -52,20 +53,25 @@ public class Status : MonoBehaviour
         }
     }
 
+    public bool isReachedMaxValue()
+    {
+        return CurrentValue >= MaxValue;
+    }
+
     void AddStaticModifyStatus(StatusModifierDataModel StatusModifierData)
     {
         if (StatusModifierData.isMultiplier)
-            CurrentValue *= StatusModifierData.ModifierValue;
+            _CurrentValue *= StatusModifierData.ModifierValue;
         else
-            CurrentValue += StatusModifierData.ModifierValue;
+            _CurrentValue += StatusModifierData.ModifierValue;
     }
 
     void SubtractStaticModifyStatus(StatusModifierDataModel StatusModifierData)
     {
         if (StatusModifierData.isMultiplier)
-            CurrentValue -= StatusModifierData.ModifierValue * StatusModifierData.OriginalValue - StatusModifierData.OriginalValue;
+            _CurrentValue -= StatusModifierData.ModifierValue * StatusModifierData.OriginalValue - StatusModifierData.OriginalValue;
         else
-            CurrentValue -= StatusModifierData.ModifierValue;
+            _CurrentValue -= StatusModifierData.ModifierValue;
     }
 
     void StartDynamicModifyStatusCoroutine()
@@ -100,9 +106,9 @@ public class Status : MonoBehaviour
                     if (CurrentValue < MaxValue)
                     {
                         if (StatusModifiers[i].isMultiplier)
-                            CurrentValue *= StatusModifiers[i].ModifierValue;
+                            _CurrentValue *= StatusModifiers[i].ModifierValue;
                         else
-                            CurrentValue += StatusModifiers[i].ModifierValue;
+                            _CurrentValue += StatusModifiers[i].ModifierValue;
                     }
                     else
                         break;

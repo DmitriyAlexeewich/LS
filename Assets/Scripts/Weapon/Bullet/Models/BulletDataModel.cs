@@ -37,7 +37,7 @@ namespace Assets.Scripts.Weapon.Bullet.Models
         [SerializeField]
         private EnumMagicType _MagicType;
 
-        public BulletDataModel(EnumBulletType NewBulletType, float NewLifeTime, float NewDistance, float NewDamage, 
+        public BulletDataModel(EnumBulletType NewBulletType, float NewLifeTime, float NewDamage, 
                                float NewSpeed, float NewDiameter, EnumMagicType NewMagicType)
         {
             _BulletType = NewBulletType;
