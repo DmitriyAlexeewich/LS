@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Weapon.Bullet.Effects.EnemyHitEffects.Models;
+﻿using Assets.Scripts.Stats.Enumerators;
+using Assets.Scripts.Weapon.Bullet.Effects.EnemyHitEffects.Models;
 using Assets.Scripts.Weapon.Bullet.Effects.FlyEffects.Enumerators;
 using Assets.Scripts.Weapon.Bullet.Effects.FlyEffects.Models;
 using Assets.Scripts.Weapon.Bullet.Effects.Models;
@@ -9,6 +10,7 @@ using Assets.Scripts.Weapon.Model.Enumerators;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections;
 using UnityEngine;
 
@@ -18,9 +20,7 @@ public class Bullet : MonoBehaviour
 
 
     EnumBulletType BulletType;
-    float LifeTime;
-    float Damage;
-    float Speed;
+    List<Status> Statuses = new List<Status>();
     float Diameter;
     List<Vector3> CheckHitPoints;
     float CheckHitPointsDistance;
@@ -42,6 +42,7 @@ public class Bullet : MonoBehaviour
         {
             var status = this.gameObject.AddComponent<Status>();
             status.Construct(BulletData.StatusesData[i]);
+            Statuses.Add(status);
         }
     }
 
@@ -83,15 +84,20 @@ public class Bullet : MonoBehaviour
 
     IEnumerator FlyBullet()
     {
-        var hit = new RaycastHit();
-        //AddFlyEffect();
-        while ((LifeTime > 0) && (!isBulletPhysicsHit(ref hit)))
+        var lifeTimeStatusComponent = Statuses.FirstOrDefault(item => item.StatusType == EnumStatusType.LifeTime);
+        var speedStatusComponent = Statuses.FirstOrDefault(item => item.StatusType == EnumStatusType.Speed);
+        if ((lifeTimeStatusComponent != null) && ((speedStatusComponent != null)))
         {
-            BulletTransformComponent.position += BulletTransformComponent.forward * Speed * Time.deltaTime;
-            LifeTime -= Time.deltaTime;
-            yield return null;
+            lifeTimeStatusComponent.AddStatusModifier(1, false, true);
+            var hit = new RaycastHit();
+            //AddFlyEffect();
+            while ((!lifeTimeStatusComponent.isReachedMaxValue()) && (!isBulletPhysicsHit(ref hit)))
+            {
+                BulletTransformComponent.position += BulletTransformComponent.forward * speedStatusComponent.CurrentValue * Time.deltaTime;
+                yield return null;
+            }
+            BulletHit(hit);
         }
-        BulletHit(hit);
     }
 
     void BulletHit(RaycastHit Hit)
@@ -101,7 +107,7 @@ public class Bullet : MonoBehaviour
             var hitTransform = Hit.transform;
             if (hitTransform.gameObject.tag == "Enemy")
             {
-                hitTransform.gameObject.GetComponent<EnemyStats>().MinusStats(Damage);
+                //hitTransform.gameObject.GetComponent<EnemyStats>().MinusStats(Damage);
                 //AddEnemyHitEffectToEnemy(hitTransform);
             }
             else
