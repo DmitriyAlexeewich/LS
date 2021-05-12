@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Stats.Enumerators;
 using Assets.Scripts.Stats.Model;
+using Assets.Scripts.Weapon.Effects.Enumerators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,13 @@ public class StatusCollection : MonoBehaviour
 
     List<Status> Statuses = new List<Status>();
 
+    public void Construct()
+    {
+        var statusComponents = this.gameObject.GetComponents<Status>();
+        if(statusComponents.Length > 0)
+            Statuses = statusComponents.ToList();
+    }
+
     public void Construct(List<StatusDataModel> NewStatuses)
     {
         for (int i = 0; i < NewStatuses.Count; i++)
@@ -22,11 +30,11 @@ public class StatusCollection : MonoBehaviour
         }
     }
 
-    public int AddStatusModifier(EnumStatusType StatusType, float NewModifierValue, bool isMultiplierFlag = false, bool isUpdatedFlag = false)
+    public int AddStatusModifier(EnumStatusType StatusType, EnumMagicType MagicType, float NewModifierValue, bool isMultiplierFlag = false, bool isUpdatedFlag = false)
     {
         var status = Statuses.FirstOrDefault(item => item.StatusType == StatusType);
         if (status != null)
-            return status.AddStatusModifier(NewModifierValue, isMultiplierFlag, isUpdatedFlag);
+            return status.AddStatusModifier(MagicType, NewModifierValue, isMultiplierFlag, isUpdatedFlag);
         return -1;
     }
 

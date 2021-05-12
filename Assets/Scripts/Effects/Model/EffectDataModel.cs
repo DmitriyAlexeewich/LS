@@ -51,7 +51,7 @@ namespace Assets.Scripts.Effects.Model
             if (NewLifeTime > 0)
                 _LifeTime = NewLifeTime;
             else
-                _LifeTime = 1f;
+                _LifeTime = 0;
         }
     }
 }
