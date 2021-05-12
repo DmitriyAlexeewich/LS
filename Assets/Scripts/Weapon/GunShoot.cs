@@ -19,7 +19,6 @@ public class GunShoot : MonoBehaviour
     bool getRangeFormCircle;
     float RangeX;
     float RangeY;
-    EnumGunShootType GunShootType;
     BulletDataModel BulletData;
 
     IEnumerator ShootCoroutine;
@@ -35,7 +34,6 @@ public class GunShoot : MonoBehaviour
         getRangeFormCircle = GunShootData.getRangeFormCircle;
         RangeX = GunShootData.RangeX;
         RangeY = GunShootData.RangeY;
-        GunShootType = GunShootData.GunShootType;
         BulletData = NewBulletData;
 
         GunShootTriggerComponent.StartShootEvent += StartShoot;
@@ -71,7 +69,7 @@ public class GunShoot : MonoBehaviour
             {
                 Bullet bulletComponent = bulletTransform.gameObject.AddComponent<Bullet>();
                 bulletComponent.Construct(BulletData);
-                bulletComponent.StartBullet(GunShootType, ScopeTransformComponent.position, destinationPoint, bulletTransform);
+                bulletComponent.StartBullet(ScopeTransformComponent.position, destinationPoint, bulletTransform);
             }
             yield return null;
         }

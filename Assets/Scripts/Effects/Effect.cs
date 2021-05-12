@@ -12,11 +12,10 @@ public class Effect : MonoBehaviour
 
     public void Construct(EffectDataModel EffectData)
     {
-        var statuses = this.gameObject.GetComponents<Status>();
-        for (int i = 0; i < statuses.Length; i++)
-        {
-            
-        }
+        
     }
 
+    public void StartEffectCoroutine()
+    {
+    }
 }

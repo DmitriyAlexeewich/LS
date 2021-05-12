@@ -1,8 +1,5 @@
-﻿using Assets.Scripts.Stats.Enumerators;
-using Assets.Scripts.Weapon.Bullet.Effects.EnemyHitEffects.Models;
-using Assets.Scripts.Weapon.Bullet.Effects.FlyEffects.Enumerators;
-using Assets.Scripts.Weapon.Bullet.Effects.FlyEffects.Models;
-using Assets.Scripts.Weapon.Bullet.Effects.Models;
+﻿using Assets.Scripts.Effects.Model;
+using Assets.Scripts.Stats.Enumerators;
 using Assets.Scripts.Weapon.Bullet.Enumerators;
 using Assets.Scripts.Weapon.Bullet.Models;
 using Assets.Scripts.Weapon.Effects.Enumerators;
@@ -20,13 +17,13 @@ public class Bullet : MonoBehaviour
 
 
     EnumBulletType BulletType;
-    List<Status> Statuses = new List<Status>();
+    StatusCollection StatusCollectionComponent;
     float Diameter;
     List<Vector3> CheckHitPoints;
     float CheckHitPointsDistance;
     List<BulletEffectsDataModel> BulletEffects;
     EnumMagicType MagicType;
-
+    bool isPhysics;
 
     IEnumerator FlyBulletCoroutine;
 
@@ -38,30 +35,36 @@ public class Bullet : MonoBehaviour
         CheckHitPointsDistance = BulletData.CheckHitPointsDistance;
         BulletEffects = BulletData.BulletEffects;
         MagicType = BulletData.MagicType;
-        for (int i = 0; i < BulletData.StatusesData.Count; i++)
-        {
-            var status = this.gameObject.AddComponent<Status>();
-            status.Construct(BulletData.StatusesData[i]);
-            Statuses.Add(status);
-        }
+        StatusCollectionComponent = this.gameObject.AddComponent<StatusCollection>();
+        StatusCollectionComponent.Construct(BulletData.StatusesData);
+        isPhysics = BulletData.isPhysics;
     }
 
-    public void StartBullet(EnumGunShootType GunShootType, Vector3 StartPosition, Vector3 DestinationPoint, Transform BulletTransform)
+    public void StartBullet(Vector3 StartPosition, Vector3 DestinationPoint, Transform BulletTransform)
     {
         BulletTransformComponent = BulletTransform;
-        switch (GunShootType)
+        switch (BulletType)
         {
-            case EnumGunShootType.Physics:
-                BulletTransformComponent.LookAt(DestinationPoint);
-                StartFlyBullet();
+            case EnumBulletType.Plasma:
+                StatusCollectionComponent.AddStatusModifier(EnumStatusType.Damage, 1.05f, true, true);
+                StatusCollectionComponent.AddStatusModifier(EnumStatusType.Speed, 0.95f, true, true);
                 break;
-            case EnumGunShootType.Ray:
-                BulletTransformComponent.position = DestinationPoint;
-                RaycastBullet(StartPosition);
+            case EnumBulletType.Rocket:
+                StatusCollectionComponent.AddStatusModifier(EnumStatusType.LifeTime, 0.95f, true, true);
+                StatusCollectionComponent.AddStatusModifier(EnumStatusType.Speed, 1.05f, true, true);
                 break;
             default:
-                DestroyBullet();
                 break;
+        }
+        if (isPhysics)
+        {
+            BulletTransformComponent.LookAt(DestinationPoint);
+            StartFlyBullet();
+        }
+        else
+        {
+            BulletTransformComponent.position = DestinationPoint;
+            RaycastBullet(StartPosition);
         }
     }
 
@@ -75,22 +78,17 @@ public class Bullet : MonoBehaviour
     {
         var hit = new RaycastHit();
         isBulletRaycastHit(Start, BulletTransformComponent.position, ref hit);
-        if (hit.collider != null)
-        {
-            
-        }
         BulletHit(hit);
     }
 
     IEnumerator FlyBullet()
     {
-        var lifeTimeStatusComponent = Statuses.FirstOrDefault(item => item.StatusType == EnumStatusType.LifeTime);
-        var speedStatusComponent = Statuses.FirstOrDefault(item => item.StatusType == EnumStatusType.Speed);
+        var lifeTimeStatusComponent = StatusCollectionComponent.GetStatus(EnumStatusType.LifeTime);
+        var speedStatusComponent = StatusCollectionComponent.GetStatus(EnumStatusType.Speed);
         if ((lifeTimeStatusComponent != null) && ((speedStatusComponent != null)))
         {
             lifeTimeStatusComponent.AddStatusModifier(1, false, true);
             var hit = new RaycastHit();
-            //AddFlyEffect();
             while ((!lifeTimeStatusComponent.isReachedMaxValue()) && (!isBulletPhysicsHit(ref hit)))
             {
                 BulletTransformComponent.position += BulletTransformComponent.forward * speedStatusComponent.CurrentValue * Time.deltaTime;
@@ -105,14 +103,21 @@ public class Bullet : MonoBehaviour
         if (Hit.collider != null)
         {
             var hitTransform = Hit.transform;
-            if (hitTransform.gameObject.tag == "Enemy")
+            var enemyComponent = hitTransform.gameObject.GetComponent<Enemy>();
+            if (enemyComponent != null)
             {
-                //hitTransform.gameObject.GetComponent<EnemyStats>().MinusStats(Damage);
-                //AddEnemyHitEffectToEnemy(hitTransform);
+                var damageStatus = StatusCollectionComponent.GetStatus(EnumStatusType.Damage);
+                if (damageStatus != null)
+                    enemyComponent.AddDamage(MagicType, damageStatus.CurrentValue);
+                if (BulletType == EnumBulletType.Arrow)
+                {
+                    var effect = hitTransform.gameObject.AddComponent<Effect>();
+                    effect.Construct(new EffectDataModel(MagicType, EnumStatusType.Damage, 1.01f, 10f, true, true));
+                    effect.StartEffectCoroutine();
+                }
             }
             else
                 Debug.Log(1);
-                //SpawnNonEnemyHitEffect(hitTransform);
         }
         DestroyBullet();
     }

@@ -15,6 +15,7 @@ namespace Assets.Scripts.Effects.Model
         public EnumMagicType MagicType { get { return _MagicType; } }
         public EnumStatusType TargetStatusType { get { return _TargetStatusType; } }
         public float EffectValue { get { return _EffectValue; }}
+        public float LifeTime { get { return _LifeTime; } }
         public bool isMultiplier { get { return _isMultiplier; } }
         public bool isUpdated { get { return _isUpdated; } }
 
@@ -26,12 +27,14 @@ namespace Assets.Scripts.Effects.Model
         [SerializeField]
         private float _EffectValue;
         [SerializeField]
+        private float _LifeTime;
+        [SerializeField]
         private bool _isMultiplier;
         [SerializeField]
         private bool _isUpdated;
 
 
-        public EffectDataModel(EnumMagicType NewMagicType, EnumStatusType NewTargetStatusType, float NewEffectValue, bool isMultiplierFlag, bool isUpdatedFlag)
+        public EffectDataModel(EnumMagicType NewMagicType, EnumStatusType NewTargetStatusType, float NewEffectValue, float NewLifeTime, bool isMultiplierFlag = false, bool isUpdatedFlag = false)
         {
             _MagicType = NewMagicType;
             _TargetStatusType = NewTargetStatusType;
@@ -45,6 +48,10 @@ namespace Assets.Scripts.Effects.Model
                 if (_isMultiplier)
                     _EffectValue = 1;
             }
+            if (NewLifeTime > 0)
+                _LifeTime = NewLifeTime;
+            else
+                _LifeTime = 1f;
         }
     }
 }

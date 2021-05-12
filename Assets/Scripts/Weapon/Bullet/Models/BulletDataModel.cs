@@ -20,6 +20,7 @@ namespace Assets.Scripts.Weapon.Bullet.Models
         public float CheckHitPointsDistance { get { return _CheckHitPointsDistance; } }
         public List<BulletEffectsDataModel> BulletEffects { get { return _BulletEffects; } }
         public EnumMagicType MagicType { get { return _MagicType; } }
+        public bool isPhysics { get { return _isPhysics; } }
 
 
         [SerializeField]
@@ -36,6 +37,7 @@ namespace Assets.Scripts.Weapon.Bullet.Models
         private List<BulletEffectsDataModel> _BulletEffects = new List<BulletEffectsDataModel>();
         [SerializeField]
         private EnumMagicType _MagicType;
+        private bool _isPhysics = true;
 
         public BulletDataModel(EnumBulletType NewBulletType, float NewLifeTime, float NewDamage, 
                                float NewSpeed, float NewDiameter, EnumMagicType NewMagicType)
@@ -52,6 +54,8 @@ namespace Assets.Scripts.Weapon.Bullet.Models
             else
                 _Diameter = 1;
             _MagicType = NewMagicType;
+            if ((_BulletType == EnumBulletType.Arrow) || (_BulletType == EnumBulletType.Bullet))
+                _isPhysics = false;
         }
 
         public BulletDataModel(BulletDataModel OriginalBullet)
@@ -63,6 +67,7 @@ namespace Assets.Scripts.Weapon.Bullet.Models
             _CheckHitPointsDistance = OriginalBullet.CheckHitPointsDistance;
             _BulletEffects = OriginalBullet.BulletEffects;
             _MagicType = OriginalBullet.MagicType;
+            _isPhysics = OriginalBullet._isPhysics;
         }
 
         public void GenerateCheckHitPoints()

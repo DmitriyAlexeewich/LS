@@ -19,7 +19,6 @@ namespace Assets.Scripts.Weapon.Model
         public bool getRangeFormCircle { get { return _getRangeFormCircle; } }
         public float RangeX { get { return _RangeX; } }
         public float RangeY { get { return _RangeY; } }
-        public EnumGunShootType GunShootType { get { return _GunShootType; } }
 
 
         [SerializeField]
@@ -32,8 +31,6 @@ namespace Assets.Scripts.Weapon.Model
         private float _RangeX;//Diameter if _isRangeFormCircle = true
         [SerializeField]
         private float _RangeY;
-        [SerializeField]
-        private EnumGunShootType _GunShootType;
 
 
         public GunShootDataModel(float NewLifeTimeModifier, float NewSpeedModifier, float NewDistance,
@@ -57,7 +54,6 @@ namespace Assets.Scripts.Weapon.Model
                 _RangeY = NewRangeY;
             else
                 _RangeY = 0;
-            _GunShootType = NewGunShootType;
         }
     }
 }
