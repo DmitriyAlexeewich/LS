@@ -1,35 +1,30 @@
-﻿using Assets.Scripts.Weapon.Bullet.Enumerators;
-using Assets.Scripts.Weapon.Bullet.Models;
-using Assets.Scripts.Weapon.Effects.Enumerators;
+﻿using Assets.Scripts.Weapon.Ammo.Models;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Weapon.Model
 {
-    [System.Serializable]
+    [Serializable]
     public class GunDataModel
     {
-        public BulletDataModel BulletData { get { return _BulletData; } }
-        public GunShootDataModel GunShootData { get { return _GunShootData; } }
-        public GunShootTriggerDataModel ShootTriggerData { get { return _GunShootTriggerData; } }
-        public GunVisualisationDataModel GunVisualisationData { get { return _GunVisualisationData; } }
+        public BulletDataModel BulletData { get { return _bulletData; } }
+        public GunShootDataModel GunShootData { get { return _gunShootData; } }
+        public GunShootTriggerDataModel ShootTriggerData { get { return _gunShootTriggerData; } }
 
 
         [SerializeField]
-        private BulletDataModel _BulletData;
+        private BulletDataModel _bulletData;
         [SerializeField]
-        private GunShootDataModel _GunShootData;
+        private GunShootDataModel _gunShootData;
         [SerializeField]
-        private GunShootTriggerDataModel _GunShootTriggerData;
-        [SerializeField]
-        private GunVisualisationDataModel _GunVisualisationData;
+        private GunShootTriggerDataModel _gunShootTriggerData;
 
-        public GunDataModel(BulletDataModel NewBulletData, GunShootDataModel NewGunShootData, 
-                            GunShootTriggerDataModel NewGunShootTriggerData, GunVisualisationDataModel NewGunVisualisationData)
+        public GunDataModel(BulletDataModel bulletData, GunShootDataModel gunShootData, 
+                            GunShootTriggerDataModel gunShootTriggerData)
         {
-            _BulletData = NewBulletData;
-            _GunShootData = NewGunShootData;
-            _GunShootTriggerData = NewGunShootTriggerData;
-            _GunVisualisationData = NewGunVisualisationData;
+            _bulletData = bulletData;
+            _gunShootData = gunShootData;
+            _gunShootTriggerData = gunShootTriggerData;
         }
     }
 }

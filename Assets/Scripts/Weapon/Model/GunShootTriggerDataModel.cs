@@ -11,21 +11,25 @@ namespace Assets.Scripts.Weapon.Model
     [System.Serializable]
     public class GunShootTriggerDataModel
     {
-        public EnumGunShootTriggerType GunShootTriggerType { get { return _GunShootTriggerType; } }
-        public float ShootLoadTime { get { return _ShootLoadTime; } }
+        public EnumGunShootTriggerType GunShootTriggerType { get { return _gunShootTriggerType; } }
+        public int ShootLoadTime { get { return _shootLoadTime; } }
+        public GunShootTriggerVisualisationDataModel GunShootTriggerVisualisationData { get { return _gunShootTriggerVisualisationData; } }
 
         [SerializeField]
-        private EnumGunShootTriggerType _GunShootTriggerType;
+        private EnumGunShootTriggerType _gunShootTriggerType;
         [SerializeField]
-        private float _ShootLoadTime;
+        private int _shootLoadTime;
+        [SerializeField]
+        private GunShootTriggerVisualisationDataModel _gunShootTriggerVisualisationData;
 
-        public GunShootTriggerDataModel(EnumGunShootTriggerType NewGunShootTriggerType, float NewShootLoadTime)
+        public GunShootTriggerDataModel(EnumGunShootTriggerType gunShootTriggerType, int shootLoadTime, GunShootTriggerVisualisationDataModel gunShootTriggerVisualisationData)
         {
-            _GunShootTriggerType = NewGunShootTriggerType;
-            if ((NewShootLoadTime > 0) && (NewShootLoadTime < 1))
-                _ShootLoadTime = NewShootLoadTime;
+            _gunShootTriggerType = gunShootTriggerType;
+            if ((shootLoadTime > 0) && (shootLoadTime < 1))
+                _shootLoadTime = shootLoadTime;
             else
-                _ShootLoadTime = 0.5f;
+                _shootLoadTime = 1;
+            _gunShootTriggerVisualisationData = gunShootTriggerVisualisationData;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Assets.Scripts.Weapon.Model.Enumerators
 {
     public enum EnumGunShootTriggerType
     {
-        Hold = 1,
-        Press = 2
+        OnStart = 1,
+        OnEnd = 2
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Player.Model;
-using Assets.Scripts.Weapon.Effects.Enumerators;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,34 +7,34 @@ using UnityEngine.VFX;
 
 public class PlayerWeaponVisualisation : MonoBehaviour
 {
-    Transform PlayerWeaponTransformComponent;
-    Vector3 StartPosition;
-    float Weight;
-    float MaxInertiaAmount;
-    bool isConstructed = false;
+    private Transform _playerWeaponTransformComponent;
+    private Vector3 _startPosition;
+    private float _weight;
+    private float _maxInertiaAmount;
+    private bool _isConstructed = false;
 
-    public void Construct(PlayerWeaponVisualisationDataModel PlayerWeaponVisualisationData, Transform PlayerWeaponTransform)
+    public void Construct(PlayerWeaponVisualisationDataModel playerWeaponVisualisationData, Transform playerWeaponTransform)
     {
-        PlayerWeaponTransformComponent = PlayerWeaponTransform;
+        _playerWeaponTransformComponent = playerWeaponTransform;
 
-        PlayerWeaponTransformComponent.localPosition = PlayerWeaponVisualisationData.Position;
-        PlayerWeaponTransformComponent.localRotation = PlayerWeaponVisualisationData.Rotation;
-        StartPosition = PlayerWeaponTransformComponent.localPosition;
+        _playerWeaponTransformComponent.localPosition = playerWeaponVisualisationData.Position;
+        _playerWeaponTransformComponent.localRotation = playerWeaponVisualisationData.Rotation;
+        _startPosition = _playerWeaponTransformComponent.localPosition;
 
-        Weight = PlayerWeaponVisualisationData.Weight;
-        MaxInertiaAmount = PlayerWeaponVisualisationData.MaxInertiaAmount;
+        _weight = playerWeaponVisualisationData.Weight;
+        _maxInertiaAmount = playerWeaponVisualisationData.MaxInertiaAmount;
 
-        isConstructed = true;
+        _isConstructed = true;
     }
 
     public void ShowWeapon()
     {
-        PlayerWeaponTransformComponent.gameObject.SetActive(true);
+        _playerWeaponTransformComponent.gameObject.SetActive(true);
     }
 
     public void HideWeapon()
     {
-        PlayerWeaponTransformComponent.gameObject.SetActive(false);
+        _playerWeaponTransformComponent.gameObject.SetActive(false);
     }
 
     public void DestroyComponent()
@@ -43,15 +42,15 @@ public class PlayerWeaponVisualisation : MonoBehaviour
         Destroy(this);
     }
 
-    void Update()
+    private void Update()
     {
-        if (isConstructed)
+        if (_isConstructed)
         {
             var lerpPosition = new Vector3(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), 0);
-            lerpPosition *= Weight;
-            lerpPosition.x = Mathf.Clamp(lerpPosition.x, -MaxInertiaAmount, MaxInertiaAmount);
-            lerpPosition.y = Mathf.Clamp(lerpPosition.y, -MaxInertiaAmount, MaxInertiaAmount);
-            PlayerWeaponTransformComponent.localPosition = Vector3.Lerp(PlayerWeaponTransformComponent.localPosition, StartPosition + lerpPosition, Time.deltaTime);
+            lerpPosition *= _weight;
+            lerpPosition.x = Mathf.Clamp(lerpPosition.x, -_maxInertiaAmount, _maxInertiaAmount);
+            lerpPosition.y = Mathf.Clamp(lerpPosition.y, -_maxInertiaAmount, _maxInertiaAmount);
+            _playerWeaponTransformComponent.localPosition = Vector3.Lerp(_playerWeaponTransformComponent.localPosition, _startPosition + lerpPosition, Time.deltaTime);
         }
     }
 }

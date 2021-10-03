@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Player.Model;
-using Assets.Scripts.Weapon.Bullet.Enumerators;
-using Assets.Scripts.Weapon.Bullet.Models;
+using Assets.Scripts.Weapon.Ammo.Models;
 using Assets.Scripts.Weapon.Model;
 using Assets.Scripts.Weapon.Model.Enumerators;
 using System;
@@ -13,85 +12,85 @@ public class Inventory : MonoBehaviour
 {
 
     [SerializeField]
-    PlayerMovementStatsModel PlayerMovementStats;
+    private PlayerMovementStatsModel _playerMovementStats;
     [SerializeField]
-    PlayerMouseLookStatsModel PlayerMouseLookStats;
+    private PlayerMouseLookStatsModel _playerMouseLookStats;
     [SerializeField]
-    Transform WeaponBoneTransform;
+    private Transform _weaponBoneTransform;
     [SerializeField]
-    Transform MainCameraTransform;
+    private Transform _mainCameraTransform;
+
+    
+    [SerializeField]
+    private List<PlayerWeaponDataModel> _testPlayerWeaponsData;
 
 
-    [SerializeField]
-    List<PlayerWeaponDataModel> TestPlayerWeaponsData;
-
-
-    List<PlayerWeapon> PlayerWeapons;
-    PlayerHandVisualisation PlayerHandVisualisationComponent;
-    Movement PlayerMovementComponent;
-    MouseLook PlayerMouseLookComponent;
+    private List<PlayerWeapon> _playerWeapons;
+    private PlayerHandVisualisation _playerHandVisualisationComponent;
+    private Movement _playerMovementComponent;
+    private MouseLook _playerMouseLookComponent;
 
 
     void Start()
     {
-        PlayerMovementComponent = this.gameObject.AddComponent<Movement>();
-        PlayerMovementComponent.Construct(PlayerMovementStats);
+        _playerMovementComponent = this.gameObject.AddComponent<Movement>();
+        _playerMovementComponent.Construct(_playerMovementStats);
 
-        PlayerMouseLookComponent = this.gameObject.AddComponent<MouseLook>();
-        PlayerMouseLookComponent.Construct(PlayerMouseLookStats, MainCameraTransform, PlayerMovementComponent.GetPlayerTransform());
+        _playerMouseLookComponent = this.gameObject.AddComponent<MouseLook>();
+        _playerMouseLookComponent.Construct(_playerMouseLookStats, _mainCameraTransform, _playerMovementComponent.GetPlayerTransform());
 
-        PlayerHandVisualisationComponent = WeaponBoneTransform.gameObject.GetComponent<PlayerHandVisualisation>();
-        PlayerHandVisualisationComponent.Construct(PlayerMovementComponent.GetCharacterController());
+        _playerHandVisualisationComponent = _weaponBoneTransform.gameObject.GetComponent<PlayerHandVisualisation>();
+        _playerHandVisualisationComponent.Construct(_playerMovementComponent.GetCharacterController());
 
-        LoadGuns(TestPlayerWeaponsData);
+        //LoadGuns(_testPlayerWeaponsData);
     }
 
     void Update()
     {
-        ChangeGun();
+        //ChangeGun();
     }
 
-    void LoadGuns(List<PlayerWeaponDataModel> PlayerWeaponsData)
+    void LoadGuns(List<PlayerWeaponDataModel> playerWeaponsData)
     {
-        foreach (Transform child in WeaponBoneTransform)
+        foreach (Transform child in _weaponBoneTransform)
             Destroy(child.gameObject);
-        PlayerWeapons = new List<PlayerWeapon>();
+        _playerWeapons = new List<PlayerWeapon>();
 
-        for (int i = 0; i < PlayerWeaponsData.Count; i++)
+        for (int i = 0; i < playerWeaponsData.Count; i++)
         {
-            var weaponPrefabResource = Resources.Load($"Weapon/Hud/{PlayerWeaponsData[i].Id}/Weapon_{PlayerWeaponsData[i].Id}_Bone") as GameObject;
+            var weaponPrefabResource = Resources.Load($"Weapon/Hud/{playerWeaponsData[i].Id}/Weapon_{playerWeaponsData[i].Id}_Bone") as GameObject;
             if (weaponPrefabResource != null)
             {
-                var playerWeaponTransform = Instantiate(weaponPrefabResource, WeaponBoneTransform).GetComponent<Transform>();
-                PlayerWeapons.Add(playerWeaponTransform.gameObject.AddComponent<PlayerWeapon>());
-                PlayerWeaponsData[i].GunData.BulletData.GenerateCheckHitPoints();
-                PlayerWeapons.Last().Construct(MainCameraTransform, PlayerWeaponsData[i], playerWeaponTransform);
+                var playerWeaponTransform = Instantiate(weaponPrefabResource, _weaponBoneTransform).GetComponent<Transform>();
+                _playerWeapons.Add(playerWeaponTransform.gameObject.AddComponent<PlayerWeapon>());
+                //PlayerWeaponsData[i].GunData.BulletData.GenerateCheckHitPoints();
+                _playerWeapons.Last().Construct(_mainCameraTransform, playerWeaponsData[i], playerWeaponTransform);
             }
         }
-        if (PlayerWeapons.Count > 0)
-            PlayerWeapons[0].ShowWeapon();
+        if (_playerWeapons.Count > 0)
+            _playerWeapons[0].ShowWeapon();
     }
 
     void ChangeGun()
     {
-        if ((Input.GetAxis("MouseScroll") != 0) && (PlayerWeapons.Count > 1))
+        if ((Input.GetAxis("MouseScroll") != 0) && (_playerWeapons.Count > 1))
         {
             SwitchWeapon((Input.GetAxis("MouseScroll") > 0 ? 1 : -1));
         }
     }
 
-    void SwitchWeapon(int Direction)
+    void SwitchWeapon(int direction)
     {
-        for (int i = 0; i < PlayerWeapons.Count; i++)
+        for (int i = 0; i < _playerWeapons.Count; i++)
         {
-            if (PlayerWeapons[i].isActiveAndEnabled)
+            if (_playerWeapons[i].isActiveAndEnabled)
             {
-                var currentWeaponIndex = i + Direction;
+                var currentWeaponIndex = i + direction;
                 if (currentWeaponIndex < 0)
-                    currentWeaponIndex = PlayerWeapons.Count - 1;
-                else if (i >= PlayerWeapons.Count)
+                    currentWeaponIndex = _playerWeapons.Count - 1;
+                else if (i >= _playerWeapons.Count)
                     currentWeaponIndex = 0;
-                PlayerHandVisualisationComponent.StartSwitchWeapon(PlayerWeapons[i], PlayerWeapons[currentWeaponIndex]);
+                _playerHandVisualisationComponent.StartSwitchWeapon(_playerWeapons[i], _playerWeapons[currentWeaponIndex]);
                 break;
             }
         }

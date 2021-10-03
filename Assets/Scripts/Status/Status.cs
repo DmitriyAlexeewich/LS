@@ -8,10 +8,13 @@ namespace Assets.Scripts.Status
     [Serializable]
     public class Status
     {
+        public EnumStatusType StatusType { get { return _statusType; } }
         public FieldContainer CurrentValue { get { return _currentValue; } }
         public FieldContainer MinValue { get { return _minValue; } }
         public FieldContainer MaxValue { get { return _maxValue; } }
 
+        [SerializeField]
+        private EnumStatusType _statusType;
         [SerializeField]
         private FieldContainer _currentValue;
         [SerializeField]
@@ -19,8 +22,9 @@ namespace Assets.Scripts.Status
         [SerializeField]
         private FieldContainer _maxValue;
 
-        public Status(FieldContainer currentValue, FieldContainer minValue, FieldContainer maxValue)
+        public Status(EnumStatusType statusType, FieldContainer currentValue, FieldContainer minValue, FieldContainer maxValue)
         {
+            _statusType = statusType;
             _currentValue = currentValue;
             _minValue = minValue;
             _maxValue = maxValue;

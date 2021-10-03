@@ -11,6 +11,7 @@ namespace Assets.Scripts.Weapon.Ammo.Perk.Inheritors.ModifyParameters
     {
 
         [SerializeField]
+        private 
 
         public ModifyParametersPerk(EnumStartOn startOn, EnumStartBy startBy, int perkActivationCount, PerkCondition perkCondition) : base(startOn, startBy, perkActivationCount, perkCondition)
         {

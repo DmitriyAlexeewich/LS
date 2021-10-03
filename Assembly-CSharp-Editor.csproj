@@ -56,7 +56,11 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Editor\ConditionalFieldAttribute.cs" />
+    <Compile Include="Assets\Editor\Plugins\RangeExAttribute\RangeExDrawer.cs" />
+    <Compile Include="Assets\Editor\Plugins\HideIf\Utilities.cs" />
+    <Compile Include="Assets\Editor\Plugins\ReadOnlyAttribute\ReadOnlyDrawer.cs" />
+    <Compile Include="Assets\Editor\Plugins\HideIf\HideIfAttributeDrawer.cs" />
+    <Compile Include="Assets\Editor\Plugins\HideIf\HideIfAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

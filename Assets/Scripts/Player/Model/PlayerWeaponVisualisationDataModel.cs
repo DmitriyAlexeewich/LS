@@ -5,35 +5,35 @@ namespace Assets.Scripts.Player.Model
     [System.Serializable]
     public class PlayerWeaponVisualisationDataModel
     {
-        public Vector3 Position { get { return _Position; } }
-        public Quaternion Rotation { get { return _Rotation; } }
-        public float Weight { get { return _Weight; } }
-        public float MaxInertiaAmount { get { return _MaxInertiaAmount; } }
+        public Vector3 Position { get { return _position; } }
+        public Quaternion Rotation { get { return _rotation; } }
+        public float Weight { get { return _weight; } }
+        public float MaxInertiaAmount { get { return _maxInertiaAmount; } }
 
 
         [SerializeField]
-        private Vector3 _Position;
+        private Vector3 _position;
         [SerializeField]
-        private Quaternion _Rotation;
+        private Quaternion _rotation;
         [SerializeField]
-        private float _Weight;
+        private float _weight;
         [SerializeField]
-        private float _MaxInertiaAmount;
+        private float _maxInertiaAmount;
 
-        public PlayerWeaponVisualisationDataModel(Vector3 NewPosition, Quaternion NewRotation, float NewWeight, float NewMaxInertiaAmount)
+        public PlayerWeaponVisualisationDataModel(Vector3 position, Quaternion rotation, float weight, float maxInertiaAmount)
         {
-            _Position = NewPosition;
-            _Rotation = NewRotation;
+            _position = position;
+            _rotation = rotation;
 
-            if (NewWeight > 0)
-                _Weight = NewWeight;
+            if (weight > 0)
+                _weight = weight;
             else
-                _Weight = 0.1f;
+                _weight = 0.1f;
 
-            if (NewMaxInertiaAmount > 0f)
-                _MaxInertiaAmount = NewMaxInertiaAmount;
+            if (maxInertiaAmount > 0f)
+                _maxInertiaAmount = maxInertiaAmount;
             else
-                _MaxInertiaAmount = 0;
+                _maxInertiaAmount = 0;
         }
     }
 }

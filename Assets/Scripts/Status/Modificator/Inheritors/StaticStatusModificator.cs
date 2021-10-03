@@ -14,7 +14,7 @@ namespace Assets.Scripts.Modificator.Inheritors
             base(modifiedFieldType, mathOperationType, modifierValue)
         { }
 
-        public override bool StartModificator(ModifiableStatus target)
+        protected override bool AddModificator(ModifiableStatus target)
         {
             return ApplyModifications(target, _modifierValue);
         }

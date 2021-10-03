@@ -11,22 +11,22 @@ namespace Assets.Scripts.Player.Model
     [System.Serializable]
     public class PlayerWeaponDataModel
     {
-        public int Id { get { return _Id; } }
-        public GunDataModel GunData { get { return _GunData; } }
-        public PlayerWeaponVisualisationDataModel PlayerWeaponVisualisationData { get { return _PlayerWeaponVisualisationData; } }
+        public int Id { get { return _id; } }
+        public GunDataModel GunData { get { return _gunData; } }
+        public PlayerWeaponVisualisationDataModel PlayerWeaponVisualisationData { get { return _playerWeaponVisualisationData; } }
 
         [SerializeField]
-        private int _Id;
+        private int _id;
         [SerializeField]
-        private GunDataModel _GunData;
+        private GunDataModel _gunData;
         [SerializeField]
-        private PlayerWeaponVisualisationDataModel _PlayerWeaponVisualisationData;
+        private PlayerWeaponVisualisationDataModel _playerWeaponVisualisationData;
 
-        public PlayerWeaponDataModel(int NewId, GunDataModel NewGunData, PlayerWeaponVisualisationDataModel NewPlayerWeaponVisualisationData)
+        public PlayerWeaponDataModel(int id, GunDataModel gunData, PlayerWeaponVisualisationDataModel playerWeaponVisualisationData)
         {
-            _Id = NewId;
-            _GunData = NewGunData;
-            _PlayerWeaponVisualisationData = NewPlayerWeaponVisualisationData;
+            _id = id;
+            _gunData = gunData;
+            _playerWeaponVisualisationData = playerWeaponVisualisationData;
         }
     }
 }

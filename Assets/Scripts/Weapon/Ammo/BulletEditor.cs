@@ -3,8 +3,9 @@ using UnityEditor;
 using Assets.Scripts.Weapon.Ammo.Perk.Model.Enumerators;
 using Assets.Scripts.Weapon.Ammo.Perk.Condition;
 using Assets.Scripts.Weapon.Ammo.Perk.Condition.Inheritors;
-using Assets.Scripts.Weapon.Ammo.Perk.CreateObject.Inheritors.CreateZone;
-using Assets.Scripts.Weapon.Ammo.Perk.CreateObject.Inheritors.CreateBullet;
+using Assets.Scripts.Weapon.Ammo.Perk.Inheritors.CreateObject.Inheritors.CreateBullet;
+using Assets.Scripts.Weapon.Ammo.Perk.Inheritors.ModifyParameters;
+using Assets.Scripts.Weapon.Ammo.Perk.CreateObject.Inheritors.Inheritors.CreateZone;
 
 [CustomEditor(typeof(Bullet), true)]
 public class BulletEditor : Editor

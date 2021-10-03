@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.Player.Model;
-using Assets.Scripts.Weapon.Bullet.Models;
+using Assets.Scripts.Weapon.Ammo.Models;
 using Assets.Scripts.Weapon.Model;
 using Assets.Scripts.Weapon.Model.Enumerators;
 using System.Collections;
@@ -10,29 +10,29 @@ using UnityEngine;
 public class PlayerWeapon : MonoBehaviour
 {
 
-    Gun GunComponent;
-    PlayerWeaponVisualisation PlayerWeaponVisualisationComponent;
+    private Gun _gunComponent;
+    private PlayerWeaponVisualisation _playerWeaponVisualisationComponent;
 
-    public void Construct(Transform PlayerCamera, PlayerWeaponDataModel PlayerWeaponData, Transform PlayerWeaponTransform)
+    public void Construct(Transform playerCamera, PlayerWeaponDataModel playerWeaponData, Transform playerWeaponTransform)
     {
-        GunComponent = this.gameObject.AddComponent<Gun>();
-        GunComponent.Construct(PlayerCamera, PlayerWeaponData.GunData);
+        _gunComponent = this.gameObject.AddComponent<Gun>();
+        //_gunComponent.Construct(playerCamera, playerWeaponData.GunData);
 
-        PlayerWeaponVisualisationComponent = this.gameObject.AddComponent<PlayerWeaponVisualisation>();
-        PlayerWeaponVisualisationComponent.Construct(PlayerWeaponData.PlayerWeaponVisualisationData, PlayerWeaponTransform);
+        _playerWeaponVisualisationComponent = this.gameObject.AddComponent<PlayerWeaponVisualisation>();
+        _playerWeaponVisualisationComponent.Construct(playerWeaponData.PlayerWeaponVisualisationData, playerWeaponTransform);
     }
 
     public void ShowWeapon()
     {
-        PlayerWeaponVisualisationComponent.ShowWeapon();
+        _playerWeaponVisualisationComponent.ShowWeapon();
     }
 
     public void HideWeapon()
     {
-        PlayerWeaponVisualisationComponent.HideWeapon();
+        _playerWeaponVisualisationComponent.HideWeapon();
     }
 
-    void Update()
+    private void Update()
     {
         Shoot();
     }
@@ -62,12 +62,10 @@ public class PlayerWeapon : MonoBehaviour
         }
     */
 
-    void Shoot()
-    {
+    private void Shoot()
+    {/*
         if (Input.GetMouseButton(0))
-            GunComponent.StartShoot();
-        if(Input.GetMouseButtonUp(0))
-            GunComponent.StopShoot();
+            _gunComponent.StartShoot();*/
     }
     
 }

@@ -5,62 +5,62 @@ using UnityEngine;
 public class PlayerHandVisualisation : MonoBehaviour
 {
 
-    Animator HandAnimator;
-    CharacterController PlayerRig;
+    private Animator _handAnimator;
+    private CharacterController _playerRig;
 
-    float HorizontalAnimatorFloat = 0;
-    float VerticalAnimatorFloat = 0;
-    IEnumerator SwitchWeaponCoroutine = null;
+    private float _horizontalAnimatorFloat = 0;
+    private float _verticalAnimatorFloat = 0;
+    private IEnumerator _switchWeaponCoroutine = null;
 
-    public void Construct(CharacterController CharacterControllerComponent)
+    public void Construct(CharacterController characterControllerComponent)
     {
-        PlayerRig = CharacterControllerComponent;
-        HandAnimator = this.gameObject.GetComponent<Animator>();
+        _playerRig = characterControllerComponent;
+        _handAnimator = this.gameObject.GetComponent<Animator>();
     }
 
-    public void StartSwitchWeapon(PlayerWeapon PreviousWeapon, PlayerWeapon CurrentWeapon)
+    public void StartSwitchWeapon(PlayerWeapon previousWeapon, PlayerWeapon currentWeapon)
     {
-        if (SwitchWeaponCoroutine != null)
-            StopCoroutine(SwitchWeaponCoroutine);
-        PreviousWeapon.enabled = false;
-        CurrentWeapon.enabled = true;
-        SwitchWeaponCoroutine = SwitchWeapon(PreviousWeapon, CurrentWeapon);
-        StartCoroutine(SwitchWeaponCoroutine);
+        if (_switchWeaponCoroutine != null)
+            StopCoroutine(_switchWeaponCoroutine);
+        previousWeapon.enabled = false;
+        currentWeapon.enabled = true;
+        _switchWeaponCoroutine = SwitchWeapon(previousWeapon, currentWeapon);
+        StartCoroutine(_switchWeaponCoroutine);
     }
 
-    IEnumerator SwitchWeapon(PlayerWeapon PreviousWeapon, PlayerWeapon CurrentWeapon)
+    private IEnumerator SwitchWeapon(PlayerWeapon previousWeapon, PlayerWeapon currentWeapon)
     {
         yield return null;
-        HandAnimator.Play("HideWeapon");
-        while(HandAnimator.GetCurrentAnimatorStateInfo(0).IsName("HideWeapon"))
+        _handAnimator.Play("HideWeapon");
+        while(_handAnimator.GetCurrentAnimatorStateInfo(0).IsName("HideWeapon"))
             yield return null;
-        PreviousWeapon.HideWeapon();
-        CurrentWeapon.ShowWeapon();
+        previousWeapon.HideWeapon();
+        currentWeapon.ShowWeapon();
         yield return null;
-        SwitchWeaponCoroutine = null;
+        _switchWeaponCoroutine = null;
     }
 
-    void Update()
+    private void Update()
     {
-        HorizontalAnimatorFloat = Input.GetAxis("Horizontal");
-        VerticalAnimatorFloat = Input.GetAxis("Vertical");
-        if ((Input.GetButtonDown("Dash")) && (SwitchWeaponCoroutine == null))
+        _horizontalAnimatorFloat = Input.GetAxis("Horizontal");
+        _verticalAnimatorFloat = Input.GetAxis("Vertical");
+        if ((Input.GetButtonDown("Dash")) && (_switchWeaponCoroutine == null))
         {
-            if (VerticalAnimatorFloat > 0)
-                HandAnimator.Play("DashForward");
-            else if (VerticalAnimatorFloat < 0)
-                HandAnimator.Play("DashBackward");
-            if (HorizontalAnimatorFloat > 0)
-                HandAnimator.Play("DashRight");
-            else if (HorizontalAnimatorFloat < 0)
-                HandAnimator.Play("DashLeft");
+            if (_verticalAnimatorFloat > 0)
+                _handAnimator.Play("DashForward");
+            else if (_verticalAnimatorFloat < 0)
+                _handAnimator.Play("DashBackward");
+            if (_horizontalAnimatorFloat > 0)
+                _handAnimator.Play("DashRight");
+            else if (_horizontalAnimatorFloat < 0)
+                _handAnimator.Play("DashLeft");
         }
-        if (!PlayerRig.isGrounded)
+        if (!_playerRig.isGrounded)
         {
-            HorizontalAnimatorFloat = 0;
-            VerticalAnimatorFloat = 0;
+            _horizontalAnimatorFloat = 0;
+            _verticalAnimatorFloat = 0;
         }
-        HandAnimator.SetFloat("Horizontal", HorizontalAnimatorFloat);
-        HandAnimator.SetFloat("Vertical", VerticalAnimatorFloat);
+        _handAnimator.SetFloat("Horizontal", _horizontalAnimatorFloat);
+        _handAnimator.SetFloat("Vertical", _verticalAnimatorFloat);
     }
 }

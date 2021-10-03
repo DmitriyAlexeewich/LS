@@ -18,7 +18,7 @@ namespace Assets.Scripts.Status.Modificator.Inheritors
             _lifetime = lifetime;
         }
 
-        public override bool StartModificator(ModifiableStatus target)
+        protected override bool AddModificator(ModifiableStatus target)
         {
             bool _result = false;
             try

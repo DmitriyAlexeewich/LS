@@ -5,52 +5,52 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    float MouseSensitivity;
-    Transform CameraTransform;
+    private float _mouseSensitivity;
+    private Transform _cameraTransform;
 
-    float XAxisClamp;
-    Transform PlayerTransform;
+    private float _xAxisClamp;
+    private Transform _playerTransform;
 
-    public void Construct(PlayerMouseLookStatsModel PlayerMouseLookStats, Transform NewCameraTransform, Transform NewPlayerTransform)
+    public void Construct(PlayerMouseLookStatsModel playerMouseLookStats, Transform cameraTransform, Transform playerTransform)
     {
-        MouseSensitivity = PlayerMouseLookStats.MouseSensitivity;
-        CameraTransform = NewCameraTransform;
-        PlayerTransform = NewPlayerTransform;
+        _mouseSensitivity = playerMouseLookStats.MouseSensitivity;
+        _cameraTransform = cameraTransform;
+        _playerTransform = playerTransform;
     }
 
-    void Update()
+    private void Update()
     {
         CameraRotation();
     }
 
-    void CameraRotation()
+    private void CameraRotation()
     {
-        float mouseX = Input.GetAxis("Mouse X") * MouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * MouseSensitivity;
+        float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity;
 
-        XAxisClamp += mouseY;
+        _xAxisClamp += mouseY;
 
-        if (XAxisClamp > 90.0f)
+        if (_xAxisClamp > 90.0f)
         {
-            XAxisClamp = 90.0f;
+            _xAxisClamp = 90.0f;
             mouseY = 0.0f;
             ClampXAxisRotationToValue(270.0f);
         }
-        else if (XAxisClamp < -90.0f)
+        else if (_xAxisClamp < -90.0f)
         {
-            XAxisClamp = -90.0f;
+            _xAxisClamp = -90.0f;
             mouseY = 0.0f;
             ClampXAxisRotationToValue(90.0f);
         }
 
-        CameraTransform.Rotate(Vector3.left * mouseY);
-        PlayerTransform.Rotate(Vector3.up * mouseX);
+        _cameraTransform.Rotate(Vector3.left * mouseY);
+        _playerTransform.Rotate(Vector3.up * mouseX);
     }
 
-    void ClampXAxisRotationToValue(float value)
+    private void ClampXAxisRotationToValue(float value)
     {
-        Vector3 eulerRotation = CameraTransform.eulerAngles;
+        Vector3 eulerRotation = _cameraTransform.eulerAngles;
         eulerRotation.x = value;
-        CameraTransform.eulerAngles = eulerRotation;
+        _cameraTransform.eulerAngles = eulerRotation;
     }
 }

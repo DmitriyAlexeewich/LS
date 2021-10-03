@@ -1,7 +1,4 @@
-﻿using Assets.Scripts.Weapon.Bullet.Effects.Models;
-using Assets.Scripts.Weapon.Bullet.Effects.NonEnemyHitEffects.Models;
-using Assets.Scripts.Weapon.Effects.Enumerators;
-using Assets.Scripts.Weapon.Model.Enumerators;
+﻿using Assets.Scripts.Weapon.Model.Enumerators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,46 +11,30 @@ namespace Assets.Scripts.Weapon.Model
     [System.Serializable]
     public class GunShootDataModel
     {
-        public float Distance { get { return _Distance; } }
-        public int BulletsCountPerOneShoot { get { return _BulletsCountPerOneShoot; } }
-        public bool getRangeFormCircle { get { return _getRangeFormCircle; } }
-        public float RangeX { get { return _RangeX; } }
-        public float RangeY { get { return _RangeY; } }
+        public float Distance { get { return _distance; } }
+        public List<Vector3> BulletsStartSpawnPosition { get { return _bulletsStartSpawnPosition; } }
+        public GunShootLightDataModel GunShootLightData { get { return _gunShootLightData; } }
 
 
         [SerializeField]
-        private float _Distance;
+        private float _distance;
         [SerializeField]
-        private int _BulletsCountPerOneShoot;
+        private List<Vector3> _bulletsStartSpawnPosition;
         [SerializeField]
-        private bool _getRangeFormCircle = false;
-        [SerializeField]
-        private float _RangeX;//Diameter if _isRangeFormCircle = true
-        [SerializeField]
-        private float _RangeY;
+        private GunShootLightDataModel _gunShootLightData;
 
 
-        public GunShootDataModel(float NewLifeTimeModifier, float NewSpeedModifier, float NewDistance,
-                                 int NewBulletsCountPerOneShoot, bool NewGetRangeFormCircle, float NewRangeX,
-                                 float NewRangeY, EnumGunShootType NewGunShootType)
+        public GunShootDataModel(float distance, List<Vector3> bulletsStartSpawnPosition, GunShootLightDataModel gunShootLightData)
         {
-            if (NewDistance > 0)
-                _Distance = NewDistance;
+            if (distance > 0)
+                _distance = distance;
             else
-                _Distance = 1;
-            if (NewBulletsCountPerOneShoot >= 0)
-                _BulletsCountPerOneShoot = NewBulletsCountPerOneShoot;
+                _distance = 1;
+            if (bulletsStartSpawnPosition.Count > 0)
+                _bulletsStartSpawnPosition = bulletsStartSpawnPosition;
             else
-                _BulletsCountPerOneShoot = 1;
-            _getRangeFormCircle = NewGetRangeFormCircle;
-            if (NewRangeX > 0)
-                _RangeX = NewRangeX;
-            else
-                _RangeX = 0;
-            if (NewRangeY > 0)
-                _RangeY = NewRangeY;
-            else
-                _RangeY = 0;
+                _bulletsStartSpawnPosition.Add(new Vector3(0f, 0f, 0.1f));
+            _gunShootLightData = gunShootLightData;
         }
     }
 }

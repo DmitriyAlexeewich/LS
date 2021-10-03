@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Status.Enumerators;
 using Assets.Scripts.Status.Modificator.Enumerators;
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Status.Modificator
@@ -8,6 +9,8 @@ namespace Assets.Scripts.Status.Modificator
     [Serializable]
     public abstract class StatusModificator
     {
+        [SerializeField]
+        private EnumStatusType _statusType;
         [SerializeField]
         protected EnumModifiedFieldType _modifiedFieldType;
         [SerializeField]
@@ -22,7 +25,15 @@ namespace Assets.Scripts.Status.Modificator
             _modifierValue = modifierValue;
         }
 
-        public abstract bool StartModificator(ModifiableStatus target);
+        public bool StartModificator(StatusCollections statusCollections)
+        {
+            Status _target = statusCollections.Statuses.FirstOrDefault(item => item.StatusType == _statusType);
+            if (_target != null)
+                return AddModificator((ModifiableStatus)_target);
+            return false;
+        }
+
+        protected abstract bool AddModificator(ModifiableStatus target);
 
         protected bool ApplyModifications(ModifiableStatus target, int modifierValue)
         {

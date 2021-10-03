@@ -10,24 +10,24 @@ namespace Assets.Scripts.Weapon.Model
     [System.Serializable]
     public class GunVisualisationDataModel
     {
-        public Color MainGlowColor { get { return _MainGlowColor; } }
-        public Color GlowSecondaryColor { get { return _GlowSecondaryColor; } }
-        public GunShootLightDataModel GunShootLightData { get { return _GunShootLightData; } }
+        public Color MainGlowColor { get { return _mainGlowColor; } }
+        public Color GlowSecondaryColor { get { return _glowSecondaryColor; } }
+        public GunShootLightDataModel GunShootLightData { get { return _gunShootLightData; } }
 
         [SerializeField]
         [ColorUsage(true, true)]
-        private Color _MainGlowColor;
+        private Color _mainGlowColor;
         [SerializeField]
         [ColorUsage(true, true)]
-        private Color _GlowSecondaryColor;
+        private Color _glowSecondaryColor;
         [SerializeField]
-        private GunShootLightDataModel _GunShootLightData;
+        private GunShootLightDataModel _gunShootLightData;
 
-        public GunVisualisationDataModel(Color NewMainGlowColor, Color NewGlowSecondaryColor, GunShootLightDataModel NewGunShootLightData)
+        public GunVisualisationDataModel(Color mainGlowColor, Color glowSecondaryColor, GunShootLightDataModel gunShootLightData)
         {
-            _MainGlowColor = NewMainGlowColor;
-            _GlowSecondaryColor = NewGlowSecondaryColor;
-            _GunShootLightData = NewGunShootLightData;
+            _mainGlowColor = mainGlowColor;
+            _glowSecondaryColor = glowSecondaryColor;
+            _gunShootLightData = gunShootLightData;
         }
     }
 }

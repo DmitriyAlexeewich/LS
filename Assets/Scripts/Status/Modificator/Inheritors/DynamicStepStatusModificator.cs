@@ -37,7 +37,7 @@ namespace Assets.Scripts.Status.Modificator.Inheritors
             }
         }
 
-        public override bool StartModificator(ModifiableStatus target)
+        protected override bool AddModificator(ModifiableStatus target)
         {
             bool _result = false;
             try

@@ -10,37 +10,37 @@ namespace Assets.Scripts.Weapon.Model
     [System.Serializable]
     public class GunShootLightDataModel
     {
-        public float ShootLightRange { get { return _ShootLightRange; } }
-        public float ShootLightIntensity { get { return _ShootLightIntensity; } }
-        public float ShootLightTimePercentByShootLoadTime { get { return _ShootLightTimePercentByShootLoadTime; } }
-        public Color ShootLightColor { get { return _ShootLightColor; } }
+        public float ShootLightRange { get { return _shootLightRange; } }
+        public float ShootLightIntensity { get { return _shootLightIntensity; } }
+        public int ShootLightLifeTime { get { return _shootLightLifeTime; } }
+        public Color ShootLightColor { get { return _shootLightColor; } }
 
 
         [SerializeField]
-        private float _ShootLightRange;
+        private float _shootLightRange;
         [SerializeField]
-        private float _ShootLightIntensity;
+        private float _shootLightIntensity;
         [SerializeField]
-        private float _ShootLightTimePercentByShootLoadTime;
+        private int _shootLightLifeTime;
         [SerializeField]
-        private Color _ShootLightColor;
+        private Color _shootLightColor;
 
-        public GunShootLightDataModel(float NewShootLightRange, float NewShootLightIntensity, float NewShootLightTimePercentByShootLoadTime, Color NewShootLightColor)
+        public GunShootLightDataModel(float shootLightRange, float shootLightIntensity, int shootLightLifeTime, Color shootLightColor)
         {
-            if (NewShootLightRange >= 0f)
-                _ShootLightRange = NewShootLightRange;
+            if (shootLightRange >= 0f)
+                _shootLightRange = shootLightRange;
             else
-                _ShootLightRange = 0f;
-            if (NewShootLightIntensity > 0f)
-                _ShootLightIntensity = NewShootLightIntensity;
+                _shootLightRange = 0f;
+            if (shootLightIntensity > 0f)
+                _shootLightIntensity = shootLightIntensity;
             else
-                _ShootLightIntensity = 0.1f;
-            if (NewShootLightTimePercentByShootLoadTime > 0f)
-                _ShootLightTimePercentByShootLoadTime = NewShootLightTimePercentByShootLoadTime;
+                _shootLightIntensity = 0.1f;
+            if (shootLightLifeTime > 0)
+                _shootLightLifeTime = shootLightLifeTime;
             else
-                _ShootLightTimePercentByShootLoadTime = 0.1f;
+                _shootLightLifeTime = 100;
 
-            _ShootLightColor = NewShootLightColor;
+            _shootLightColor = shootLightColor;
         }
     }
 }

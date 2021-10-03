@@ -18,7 +18,7 @@ TagManager:
   - Glow
   - Player
   - PlayerHands
-  - 
+  - Bullet
   - 
   - 
   - 
@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: New Layer
+    uniqueID: 3867351123
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
