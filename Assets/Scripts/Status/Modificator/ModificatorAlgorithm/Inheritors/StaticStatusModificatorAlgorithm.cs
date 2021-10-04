@@ -1,20 +1,21 @@
 ﻿using Assets.Scripts.Status;
 using Assets.Scripts.Status.Enumerators;
-using Assets.Scripts.Status.Modificator;
-using Assets.Scripts.Status.Modificator.Enumerators;
+using Assets.Scripts.Status.Modificator.ModificatorAlgorithm;
+using Assets.Scripts.Status.Modificator.ModificatorAlgorithm.Enumerators;
 using System;
+using System.Threading.Tasks;
 
-namespace Assets.Scripts.Modificator.Inheritors
+namespace Assets.Scripts.Modificator.ModificatorAlgorithm.Inheritors
 {
     [Serializable]
-    public class StaticStatusModificator : StatusModificator
+    public class StaticStatusModificator : StatusModificatorAlgorithm
     {
 
         public StaticStatusModificator(EnumModifiedFieldType modifiedFieldType, EnumMathOperationType mathOperationType, int modifierValue) :
             base(modifiedFieldType, mathOperationType, modifierValue)
         { }
 
-        protected override bool AddModificator(ModifiableStatus target)
+        public override bool StartModificatorAlgorithm(ModifiableStatus target)
         {
             return ApplyModifications(target, _modifierValue);
         }

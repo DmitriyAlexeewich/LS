@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Status.Modificator.Enumerators
+﻿namespace Assets.Scripts.Status.Modificator.ModificatorAlgorithm.Enumerators
 {
     public enum EnumMathOperationType
     {

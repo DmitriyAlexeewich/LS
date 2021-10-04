@@ -1,13 +1,13 @@
 ﻿using Assets.Scripts.Status.Enumerators;
-using Assets.Scripts.Status.Modificator.Enumerators;
+using Assets.Scripts.Status.Modificator.ModificatorAlgorithm.Enumerators;
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Scripts.Status.Modificator.Inheritors
+namespace Assets.Scripts.Status.Modificator.ModificatorAlgorithm.Inheritors
 {
     [Serializable]
-    public class DynamicStepStatusModificator : StatusModificator
+    public class DynamicStepStatusModificatorAlgorithm : StatusModificatorAlgorithm
     {
         [SerializeField, Min(1)]
         private int _stepTime = 0;
@@ -16,7 +16,7 @@ namespace Assets.Scripts.Status.Modificator.Inheritors
 
         private int _maxTime = 5000;
 
-        public DynamicStepStatusModificator(EnumModifiedFieldType modifiedFieldType, EnumMathOperationType mathOperationType, int modifierValue, int stepTime, int stepsCount) :
+        public DynamicStepStatusModificatorAlgorithm(EnumModifiedFieldType modifiedFieldType, EnumMathOperationType mathOperationType, int modifierValue, int stepTime, int stepsCount) :
             base(modifiedFieldType, mathOperationType, modifierValue)
         {
             if ((stepTime > 0) && (stepsCount > 0))
@@ -37,7 +37,7 @@ namespace Assets.Scripts.Status.Modificator.Inheritors
             }
         }
 
-        protected override bool AddModificator(ModifiableStatus target)
+        public override bool StartModificatorAlgorithm(ModifiableStatus target)
         {
             bool _result = false;
             try
@@ -47,7 +47,6 @@ namespace Assets.Scripts.Status.Modificator.Inheritors
                     _result = ApplyModifications(target, _modifierValue);
                     Task.Delay(_stepTime);
                 }
-                target.RemoveModificator(this);
             }
             catch { }
             return _result;

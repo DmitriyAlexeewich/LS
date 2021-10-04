@@ -1,31 +1,30 @@
 ﻿using Assets.Scripts.Status.Enumerators;
-using Assets.Scripts.Status.Modificator.Enumerators;
+using Assets.Scripts.Status.Modificator.ModificatorAlgorithm.Enumerators;
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Scripts.Status.Modificator.Inheritors
+namespace Assets.Scripts.Status.Modificator.ModificatorAlgorithm.Inheritors
 {
     [Serializable]
-    public class DynamicStatusModificator : StatusModificator
+    public class DynamicStatusModificatorAlgorithm : StatusModificatorAlgorithm
     {
         [SerializeField, Min(1)]
         private int _lifetime;
 
-        public DynamicStatusModificator(EnumModifiedFieldType modifiedFieldType, EnumMathOperationType mathOperationType, int modifierValue, int lifetime) :
+        public DynamicStatusModificatorAlgorithm(EnumModifiedFieldType modifiedFieldType, EnumMathOperationType mathOperationType, int modifierValue, int lifetime) :
             base(modifiedFieldType, mathOperationType, modifierValue)
         {
             _lifetime = lifetime;
         }
 
-        protected override bool AddModificator(ModifiableStatus target)
+        public override bool StartModificatorAlgorithm(ModifiableStatus target)
         {
             bool _result = false;
             try
             {
                 _result = ApplyModifications(target, _modifierValue);
                 Task.Delay(_lifetime);
-                target.RemoveModificator(this);
             }
             catch { }
             return _result;

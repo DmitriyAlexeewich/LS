@@ -14,19 +14,19 @@ namespace Assets.Scripts.Status
         [SerializeField]
         private FieldContainer _modificatorsCountLimit;
         [SerializeField]
-        private List<StatusModificator> _statusModificators = new List<StatusModificator>();
+        private List<StatusModificatorAlgorithm> _statusModificators = new List<StatusModificatorAlgorithm>();
 
-        public ModifiableStatus(FieldContainer currentValue, FieldContainer minValue, FieldContainer maxValue, FieldContainer modificatorsCountLimit, List<StatusModificator> statusModificators)
+        public ModifiableStatus(FieldContainer currentValue, FieldContainer minValue, FieldContainer maxValue, FieldContainer modificatorsCountLimit, List<StatusModificatorAlgorithm> statusModificators)
             :base(currentValue, minValue, maxValue)
         {
             _modificatorsCountLimit = modificatorsCountLimit;
             if (statusModificators != null)
                 _statusModificators = statusModificators;
             else
-                _statusModificators = new List<StatusModificator>();
+                _statusModificators = new List<StatusModificatorAlgorithm>();
         }
 
-        public StatusModificator AddStatusModificator(StatusModificator statusModificator)
+        public StatusModificatorAlgorithm AddStatusModificator(StatusModificatorAlgorithm statusModificator)
         {
             if (_statusModificators.Count < _modificatorsCountLimit.FieldValue)
             {
@@ -36,7 +36,7 @@ namespace Assets.Scripts.Status
             return null;
         }
 
-        public void RemoveModificator(StatusModificator statusModificator)
+        public void RemoveModificator(StatusModificatorAlgorithm statusModificator)
         {
             _statusModificators.Remove(statusModificator);
         }
