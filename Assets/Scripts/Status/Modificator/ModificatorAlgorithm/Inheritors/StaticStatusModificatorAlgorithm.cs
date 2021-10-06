@@ -3,7 +3,6 @@ using Assets.Scripts.Status.Enumerators;
 using Assets.Scripts.Status.Modificator.ModificatorAlgorithm;
 using Assets.Scripts.Status.Modificator.ModificatorAlgorithm.Enumerators;
 using System;
-using System.Threading.Tasks;
 
 namespace Assets.Scripts.Modificator.ModificatorAlgorithm.Inheritors
 {

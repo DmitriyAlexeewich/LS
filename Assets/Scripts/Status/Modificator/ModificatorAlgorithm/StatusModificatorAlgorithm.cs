@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Status.Enumerators;
 using Assets.Scripts.Status.Modificator.ModificatorAlgorithm.Enumerators;
 using System;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Status.Modificator.ModificatorAlgorithm

@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Status.Field;
+﻿using Assets.Scripts.Status.Enumerators;
+using Assets.Scripts.Status.Field;
 using Assets.Scripts.Status.Modificator;
 using System;
 using System.Collections.Generic;
@@ -14,19 +15,19 @@ namespace Assets.Scripts.Status
         [SerializeField]
         private FieldContainer _modificatorsCountLimit;
         [SerializeField]
-        private List<StatusModificatorAlgorithm> _statusModificators = new List<StatusModificatorAlgorithm>();
+        private List<StatusModificator> _statusModificators = new List<StatusModificator>();
 
-        public ModifiableStatus(FieldContainer currentValue, FieldContainer minValue, FieldContainer maxValue, FieldContainer modificatorsCountLimit, List<StatusModificatorAlgorithm> statusModificators)
-            :base(currentValue, minValue, maxValue)
+        public ModifiableStatus(EnumStatusType statusType, FieldContainer currentValue, FieldContainer minValue, FieldContainer maxValue, FieldContainer modificatorsCountLimit, List<StatusModificator> statusModificators)
+            :base(statusType, currentValue, minValue, maxValue)
         {
             _modificatorsCountLimit = modificatorsCountLimit;
             if (statusModificators != null)
                 _statusModificators = statusModificators;
             else
-                _statusModificators = new List<StatusModificatorAlgorithm>();
+                _statusModificators = new List<StatusModificator>();
         }
 
-        public StatusModificatorAlgorithm AddStatusModificator(StatusModificatorAlgorithm statusModificator)
+        public StatusModificator AddStatusModificator(StatusModificator statusModificator)
         {
             if (_statusModificators.Count < _modificatorsCountLimit.FieldValue)
             {
@@ -36,7 +37,7 @@ namespace Assets.Scripts.Status
             return null;
         }
 
-        public void RemoveModificator(StatusModificatorAlgorithm statusModificator)
+        public void RemoveModificator(StatusModificator statusModificator)
         {
             _statusModificators.Remove(statusModificator);
         }
