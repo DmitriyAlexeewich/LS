@@ -8,12 +8,6 @@ using HideIf_Utilities;
 
 public abstract class HidingAttributeDrawer : PropertyDrawer
 {
-
-    /// <summary>
-    /// Checks if a property is set to be hidden by a HideIfAttribute.
-    /// 
-    /// Usefull for other property drawers that should respect the HideIfAttribute
-    /// </summary>
     public static bool CheckShouldHide(SerializedProperty property)
     {
         try
@@ -41,15 +35,8 @@ public abstract class HidingAttributeDrawer : PropertyDrawer
             return false;
         }
     }
-
-    /// <summary>
-    /// Type to PropertyDrawer types for that type
-    /// </summary>
     private static Dictionary<Type, Type> typeToDrawerType;
 
-    /// <summary>
-    /// PropertyDrawer types to instances of that type 
-    /// </summary>
     private static Dictionary<Type, PropertyDrawer> drawerTypeToDrawerInstance;
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -75,8 +62,6 @@ public abstract class HidingAttributeDrawer : PropertyDrawer
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
-        //Even if the property height is 0, the property gets margins of 1 both up and down.
-        //So to truly hide it, we have to hack a height of -2 to counteract that!
         if (CheckShouldHide(property))
             return -2;
 
@@ -217,7 +202,6 @@ public class HideIfEnumValueAttributeDrawer : HidingAttributeDrawer
         var enumProp = obj.FindProperty(hideIfEnumValueAttribute.variable);
         var states = hideIfEnumValueAttribute.states;
 
-        //enumProp.enumValueIndex gives the order in the enum list, not the actual enum value
         bool equal = states.Contains(enumProp.intValue);
 
         return equal != hideIfEnumValueAttribute.hideIfEqual;

@@ -13,7 +13,7 @@ namespace Assets.Scripts.Weapon.Ammo.Perk.Inheritors.CreateObject.Inheritors.Cre
         [SerializeReference]
         private Bullet _bullet;
 
-        public CreateBulletPerk(EnumStartOn startOn, EnumStartBy startBy, int perkActivationCount, PerkCondition perkCondition, Bullet bullet) : base(startOn, startBy, perkActivationCount, perkCondition)
+        public CreateBulletPerk(EnumStartOn startOn, int perkActivationCount, PerkCondition perkCondition, Bullet bullet) : base(startOn, perkActivationCount, perkCondition)
         {
             if (bullet != null)
                 _bullet = bullet;

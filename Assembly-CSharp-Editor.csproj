@@ -61,6 +61,7 @@
     <Compile Include="Assets\Editor\Plugins\ReadOnlyAttribute\ReadOnlyDrawer.cs" />
     <Compile Include="Assets\Editor\Plugins\HideIf\HideIfAttributeDrawer.cs" />
     <Compile Include="Assets\Editor\Plugins\HideIf\HideIfAttribute.cs" />
+    <Compile Include="Assets\Editor\Plugins\CustomListItemName\CustomListItemName.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

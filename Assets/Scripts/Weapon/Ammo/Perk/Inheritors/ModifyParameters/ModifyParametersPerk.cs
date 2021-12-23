@@ -1,11 +1,13 @@
-﻿using Assets.Scripts.Status;
-using Assets.Scripts.Status.Modificator;
+﻿using Assets.Scripts.Stats;
+using Assets.Scripts.Stats.Inheritors.ModifiableStatus;
+using Assets.Scripts.Stats.Inheritors.ModifiableStatus.Modificator;
 using Assets.Scripts.Weapon.Ammo.Models;
 using Assets.Scripts.Weapon.Ammo.Perk.Condition;
 using Assets.Scripts.Weapon.Ammo.Perk.Inheritors.ModifyParameters.Enumerators;
 using Assets.Scripts.Weapon.Ammo.Perk.Model.Enumerators;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Weapon.Ammo.Perk.Inheritors.ModifyParameters
@@ -18,9 +20,9 @@ namespace Assets.Scripts.Weapon.Ammo.Perk.Inheritors.ModifyParameters
         [SerializeField]
         private List<StatusModificator> _modificators;
 
-        public ModifyParametersPerk(EnumStartOn startOn, EnumStartBy startBy, int perkActivationCount, PerkCondition perkCondition, EnumTransformTargetType transformTargetType, 
+        public ModifyParametersPerk(EnumStartOn startOn, int perkActivationCount, PerkCondition perkCondition, EnumTransformTargetType transformTargetType, 
             List<StatusModificator> modificators) : 
-            base(startOn, startBy, perkActivationCount, perkCondition)
+            base(startOn, perkActivationCount, perkCondition)
         {
             _transformTargetType = transformTargetType;
             if (modificators != null)
@@ -47,24 +49,23 @@ namespace Assets.Scripts.Weapon.Ammo.Perk.Inheritors.ModifyParameters
 
             if (_targetTransform != null)
             {
-                StatusCollections _targetStatusCollections = _targetTransform.GetComponent<StatusCollections>();
-                if (_targetStatusCollections != null)
+                StatusesContainer _targetStatusesContainer = _targetTransform.GetComponent<StatusesContainer>();
+                if (_targetStatusesContainer != null)
                 {
                     for (int i = 0; i < _modificators.Count; i++)
                     {
-                        for (int j = 0; j < _targetStatusCollections.Statuses.Count; j++)
-                        {
-                            if (_targetStatusCollections.Statuses[j].StatusType == _modificators[i].StatusType)
-                            {
-                                ModifiableStatus _modifiableStatus = (ModifiableStatus)_targetStatusCollections.Statuses[j];
-                                StatusModificator _modificator = _modifiableStatus.AddStatusModificator(_modificators[i]);
-                                _modificator.StartModificator(_modifiableStatus);
-                                break;
-                            }
-                        }
+                        Status _targetStatus = _targetStatusesContainer.Statuses.FirstOrDefault(item => item.StatusType == _modificators[i].StatusType);
+                        ModifiableStatus _modifiableStatus = (ModifiableStatus)_targetStatus;
+                        StatusModificator _modificator = _modifiableStatus.AddStatusModificator(_modificators[i]);
+                        _modificator.StartModificator(_modifiableStatus);
                     }
                 }
             }
+        }
+
+        public void AddStatusModificator(StatusModificator statusModificator)
+        {
+            _modificators.Add(statusModificator);
         }
     }
 }

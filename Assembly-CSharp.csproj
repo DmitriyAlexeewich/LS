@@ -57,69 +57,103 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Status\Enumerators\EnumStatusType.cs" />
+    <Compile Include="Assets\Scripts\AI\Action\Enumerators\EnumAttackActionType.cs" />
+    <Compile Include="Assets\Scripts\AI\Action\Enumerators\EnumMoveActionType.cs" />
+    <Compile Include="Assets\Scripts\AI\Action\StartCondition\ActionStartCondition.cs" />
+    <Compile Include="Assets\Scripts\AI\Action\StartCondition\TargetAIAction.cs" />
+    <Compile Include="Assets\Scripts\AI\Action\StartCondition\TargetDistance\TargetDistanceCondition.cs" />
+    <Compile Include="Assets\Scripts\AI\Action\StartCondition\TargetStatsCondition\ConditionStatusValue.cs" />
+    <Compile Include="Assets\Scripts\AI\Action\StartCondition\TargetStatsCondition\Enumerators\EnumComparsionType.cs" />
+    <Compile Include="Assets\Scripts\AI\Action\StartCondition\TargetStatsCondition\Enumerators\EnumStatusChangedEventType.cs" />
+    <Compile Include="Assets\Scripts\AI\Action\StartCondition\TargetStatsCondition\TargetStatusCondition.cs" />
+    <Compile Include="Assets\Scripts\Stats\ChangedStatusValue.cs" />
     <Compile Include="Assets\Scripts\Weapon\Visualisation\GunShootLight.cs" />
     <Compile Include="Assets\Attributes\ReadOnlyAttribute.cs" />
     <Compile Include="Assets\Scripts\Player\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Stats\Inheritors\ModifiableStatus\ModifiableStatusDrawer.cs" />
     <Compile Include="Assets\Scripts\Test\Test2.cs" />
-    <Compile Include="Assets\Scripts\Status\Status.cs" />
+    <Compile Include="Assets\Scripts\Stats\Status.cs" />
     <Compile Include="Assets\Scripts\Player\Model\PlayerMouseLookStatsModel.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Inheritors\CreateObject\Inheritors\CreateBullet\CreateBulletPerkDrawer.cs" />
     <Compile Include="Assets\Scripts\Generic\TimeWaiter.cs" />
-    <Compile Include="Assets\Scripts\Status\Modificator\Inheritors\DynamicStepStatusModificator.cs" />
+    <Compile Include="Assets\Scripts\Stats\Inheritors\ModifiableStatus\Modificator\ModificatorAlgorithm\Inheritors\DynamicStepStatusModificatorAlgorithm.cs" />
+    <Compile Include="Assets\Scripts\Stats\Inheritors\ModifiableStatus\Modificator\ModificatorAlgorithm\StatusModificatorAlgorithm.cs" />
     <Compile Include="Assets\Scripts\Weapon\Model\New\GunCannonDataModel.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Ammo\Inheritors\RaycastBullet.cs" />
+    <Compile Include="Assets\Scripts\Area\Models\Inheritors\StaticZoneScale.cs" />
     <Compile Include="Assets\Scripts\Weapon\Model\Enumerators\EnumGunModeType.cs" />
     <Compile Include="Assets\Scripts\Weapon\Model\GunShootDataModel.cs" />
+    <Compile Include="Assets\Scripts\Area\Inheritors\DynamicZone.cs" />
     <Compile Include="Assets\Scripts\Weapon\Visualisation\GunShootTriggerVisualisation.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Inheritors\CreateObject\Inheritors\CreateZone\CreateZonePerkDrawer.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerWeapon.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Inheritors\CreateObject\Inheritors\CreateZone\Enumerators\EnumZoneTargetType.cs" />
     <Compile Include="Assets\Scripts\Test\Test3.cs" />
+    <Compile Include="Assets\Scripts\Stats\Field\FieldContainerDrawer.cs" />
     <Compile Include="Assets\Scripts\Weapon\Logic\GunShootProfile.cs" />
     <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Condition\PerkCondition.cs" />
     <Compile Include="Assets\Scripts\Generic\SelfSpawner.cs" />
-    <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Condition\Inheritors\DistancePerkCondition.cs" />
     <Compile Include="Assets\Scripts\Weapon\Model\New\GunShootPointDataModel.cs" />
+    <Compile Include="Assets\Scripts\Area\Zone.cs" />
     <Compile Include="Assets\Scripts\Weapon\Model\GunVisualisationDataModel.cs" />
-    <Compile Include="Assets\Scripts\Status\Modificator\StatusModificator.cs" />
+    <Compile Include="Assets\Scripts\Stats\Inheritors\ModifiableStatus\Modificator\StatusModificator.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerHandVisualisation.cs" />
-    <Compile Include="Assets\Scripts\Status\Modificator\Enumerators\EnumMathOperationType.cs" />
+    <Compile Include="Assets\Scripts\Stats\Inheritors\ModifiableStatus\Modificator\ModificatorAlgorithm\Enumerators\EnumMathOperationType.cs" />
     <Compile Include="Assets\Scripts\Weapon\Model\GunShootTriggerDataModel.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerWeaponVisualisation.cs" />
     <Compile Include="Assets\Scripts\Weapon\Model\GunShootLightDataModel.cs" />
     <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Perk.cs" />
     <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Inheritors\CreateObject\Inheritors\CreateBullet\CreateBulletPerk.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
+    <Compile Include="Assets\Scripts\Stats\Inheritors\ModifiableStatus\ModifiableStatus.cs" />
     <Compile Include="Assets\Scripts\Weapon\Model\Enumerators\EnumGunShootTriggerType.cs" />
+    <Compile Include="Assets\Scripts\Stats\StatusesContainerEditor.cs" />
     <Compile Include="Assets\Scripts\Weapon\Logic\Gun.cs" />
+    <Compile Include="Assets\Scripts\Area\Models\Inheritors\DynamicZoneScale.cs" />
     <Compile Include="Assets\Scripts\Weapon\Model\Enumerators\EnumGunShootType.cs" />
+    <Compile Include="Assets\Scripts\Area\Models\ZoneScale.cs" />
     <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Model\Enumerators\EnumStartBy.cs" />
-    <Compile Include="Assets\Scripts\Status\Field\FieldContainer.cs" />
+    <Compile Include="Assets\Scripts\Stats\Enumerators\EnumStatusType.cs" />
+    <Compile Include="Assets\Scripts\Stats\Field\FieldContainer.cs" />
     <Compile Include="Assets\Attributes\RangeExAttribute.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\PerkDrawer.cs" />
     <Compile Include="Assets\Scripts\Weapon\Visualisation\GunMeshRenderer.cs" />
     <Compile Include="Assets\Scripts\Weapon\Model\GunDataModel.cs" />
     <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Model\Enumerators\EnumStartOn.cs" />
     <Compile Include="Assets\Scripts\Weapon\Model\GunShootTriggerVisualisationDataModel.cs" />
     <Compile Include="Assets\Scripts\Player\MouseLook.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Ammo\Inheritors\PhysicsBullet.cs" />
+    <Compile Include="Assets\Scripts\Stats\Inheritors\NonModifiableStatus\NonModifableStatusDrawer.cs" />
     <Compile Include="Assets\Scripts\Weapon\Logic\GunShootVectorPoint.cs" />
     <Compile Include="Assets\Scripts\Weapon\Logic\GunMode.cs" />
-    <Compile Include="Assets\Scripts\Status\ModifiableStatus.cs" />
-    <Compile Include="Assets\Scripts\Status\Enumerators\EnumModifiedFieldType.cs" />
+    <Compile Include="Assets\Scripts\Stats\Inheritors\ModifiableStatus\Enumerators\EnumModifiedFieldType.cs" />
     <Compile Include="Assets\Scripts\Weapon\Logic\Model\StartShootEventArgs.cs" />
-    <Compile Include="Assets\Scripts\Status\Modificator\Inheritors\StaticStatusModificator.cs" />
+    <Compile Include="Assets\Scripts\Stats\Inheritors\ModifiableStatus\Modificator\ModificatorAlgorithm\Inheritors\StaticStatusModificatorAlgorithm.cs" />
     <Compile Include="Assets\Scripts\Weapon\Ammo\Bullet.cs" />
-    <Compile Include="Assets\Scripts\Status\Modificator\Inheritors\DynamicStatusModificator.cs" />
+    <Compile Include="Assets\Scripts\Stats\Inheritors\ModifiableStatus\Modificator\ModificatorAlgorithm\Inheritors\DynamicStatusModificatorAlgorithm.cs" />
+    <Compile Include="Assets\Scripts\Stats\StatusesContainer.cs" />
     <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Condition\Inheritors\TimePerkCondition.cs" />
     <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Inheritors\CreateObject\Inheritors\CreateZone\CreateZonePerk.cs" />
     <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Inheritors\CreateObject\CreateObjectPerk.cs" />
     <Compile Include="Assets\Scripts\Player\Model\PlayerWeaponDataModel.cs" />
+    <Compile Include="Assets\Scripts\Stats\StatusDrawer.cs" />
+    <Compile Include="Assets\Extensions\SerializedPropertyExtensions.cs" />
     <Compile Include="Assets\Scripts\Weapon\Logic\GunShootPoint.cs" />
     <Compile Include="Assets\Scripts\Weapon\Ammo\Models\BulletEventArgs.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Inheritors\ModifyParameters\Enumerators\EnumTransformTargetType.cs" />
     <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Model\StartPerkDirectionModel.cs" />
-    <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Condition\Inheritors\NonePerkCondition.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Condition\Inheritors\InstantPerkCondition.cs" />
     <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Inheritors\CreateObject\Enumerators\EnumTargetType.cs" />
     <Compile Include="Assets\Scripts\Player\Movement.cs" />
+    <Compile Include="Assets\Scripts\Area\Inheritors\StaticZone.cs" />
     <Compile Include="Assets\Scripts\Player\Model\PlayerWeaponVisualisationDataModel.cs" />
     <Compile Include="Assets\Scripts\Weapon\Ammo\BulletEditor.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Inheritors\ModifyParameters\ModifyParametersPerk.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Inheritors\ModifyParameters\ModifyParameterPerkDrawer.cs" />
     <Compile Include="Assets\Scripts\Player\Model\PlayerMovementStatsModel.cs" />
+    <Compile Include="Assets\Attributes\CustomListItemNameAttribute.cs" />
     <Compile Include="Assets\Scripts\Weapon\Model\Enumerators\EnumGunStartShootLoadActionType.cs" />
+    <Compile Include="Assets\Scripts\Stats\Inheritors\NonModifiableStatus\NonModifableStatus.cs" />
     <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Model\Enumerators\EnumPerkType.cs" />
     <Compile Include="Assets\Scripts\Weapon\Logic\GunShootVectorDirectionPoint.cs" />
     <Compile Include="Assets\Scripts\Weapon\Logic\GunShootVectorStartPoint.cs" />
@@ -127,17 +161,8 @@
     <Compile Include="Assets\Scripts\Weapon\Visualisation\GunMuzzleFlashEffect.cs" />
     <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Inheritors\CreateObject\Enumerators\EnumSpawningObjectType.cs" />
     <Compile Include="Assets\Scripts\Weapon\Ammo\Models\BulletDataModel.cs" />
-    <Compile Include="Assets\Scripts\Area\Zone.cs" />
-    <Compile Include="Assets\Scripts\Area\Inheritors\DynamicZone.cs" />
-    <Compile Include="Assets\Scripts\Area\Inheritors\StaticZone.cs" />
-    <Compile Include="Assets\Scripts\Area\Models\ZoneScale.cs" />
-    <Compile Include="Assets\Scripts\Area\Models\Inheritors\DynamicZoneScale.cs" />
-    <Compile Include="Assets\Scripts\Area\Models\Inheritors\StaticZoneScale.cs" />
-    <Compile Include="Assets\Scripts\Weapon\Ammo\Inheritors\PhysicsBullet.cs" />
-    <Compile Include="Assets\Scripts\Weapon\Ammo\Inheritors\RaycastBullet.cs" />
-    <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Inheritors\CreateObject\Inheritors\CreateZone\Enumerators\EnumZoneTargetType.cs" />
-    <Compile Include="Assets\Scripts\Weapon\Ammo\Perk\Inheritors\ModifyParameters\ModifyParametersPerk.cs" />
-    <Compile Include="Assets\Scripts\Status\StatusCollections.cs" />
+    <Compile Include="Assets\Scripts\Stats\Inheritors\ModifiableStatus\Modificator\UIModificatorConstructor.cs" />
+    <Compile Include="Assets\Scripts\AI\AIAgent.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -786,8 +811,7 @@
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

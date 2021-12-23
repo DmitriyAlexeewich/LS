@@ -17,7 +17,7 @@ namespace Assets.Scripts.Weapon.Ammo.Perk.CreateObject.Inheritors.Inheritors.Cre
         [SerializeField]
         private EnumZoneTargetType _zoneTargetType = EnumZoneTargetType.HitObject;
 
-        public CreateZonePerk(EnumStartOn startOn, EnumStartBy startBy, int perkActivationCount, PerkCondition perkCondition, EnumZoneTargetType zoneTargetType, Zone zone) : base(startOn, startBy, perkActivationCount, perkCondition)
+        public CreateZonePerk(EnumStartOn startOn, int perkActivationCount, PerkCondition perkCondition, EnumZoneTargetType zoneTargetType, Zone zone) : base(startOn, perkActivationCount, perkCondition)
         {
             if (_zone != null)
                 _zone = zone;

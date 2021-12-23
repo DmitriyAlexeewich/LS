@@ -6,7 +6,6 @@ public class PhysicsBullet : Bullet
 {
 
     [SerializeField]
-    [ReadOnly]
     private int _speed;
     [SerializeField, Min(1)]
     [Tooltip("Time in miliseconds")]

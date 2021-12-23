@@ -2,8 +2,7 @@
 {
     public enum EnumStartBy
     {
-        None = 0,
-        Time = 1,
-        Distance = 2
+        Instant = 0,
+        Time = 1
     }
 }

@@ -15,7 +15,7 @@ namespace Assets.Scripts.Weapon.Ammo.Perk.Inheritors.CreateObject
         [SerializeField]
         protected List<StartPerkDirectionModel> _startPerkDirections = new List<StartPerkDirectionModel>();
 
-        public CreateObjectPerk(EnumStartOn startOn, EnumStartBy startBy, int perkActivationCount, PerkCondition perkCondition) : base(startOn, startBy, perkActivationCount, perkCondition)
+        public CreateObjectPerk(EnumStartOn startOn, int perkActivationCount, PerkCondition perkCondition) : base(startOn, perkActivationCount, perkCondition)
         {
         }
 

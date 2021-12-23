@@ -12,21 +12,18 @@ namespace Assets.Scripts.Weapon.Ammo.Perk
     {
         public EnumStartOn StartOn { get { return _startOn; } }
 
+        [HideInInspector]
         [SerializeField]
-        [ReadOnly]
         protected EnumStartOn _startOn;
-        [SerializeField]
-        [ReadOnly]
-        protected EnumStartBy _startBy;
+
         [SerializeField, Min(1)]
         protected int _perkActivationCount;
         [SerializeReference]
         protected PerkCondition _perkCondition;
 
-        public Perk(EnumStartOn startOn, EnumStartBy startBy, int perkActivationCount, PerkCondition perkCondition)
+        public Perk(EnumStartOn startOn, int perkActivationCount, PerkCondition perkCondition)
         {
             _startOn = startOn;
-            _startBy = startBy;
             if (perkActivationCount < 1)
                 perkActivationCount = 1;
             _perkActivationCount = perkActivationCount;
